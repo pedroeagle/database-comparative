@@ -7,10 +7,7 @@ services:
       - SYS_NICE
     restart: always
     environment:
-      - MYSQL_USER=mysql
-      - MYSQL_DATABASE=mysql
-      - MYSQL_PASSWORD=mysql
-      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
     ports:
       - '3306:3306'
 
