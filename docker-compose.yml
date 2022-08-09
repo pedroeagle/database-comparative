@@ -27,16 +27,18 @@ services:
       - '5432:5432'
     expose:
       - 5432
-  # mongo:
-  #   image: mongo
-  #   container_name: mongo
-  #   restart: always
-  #   ports:
-  #     - 27017:27017
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: mongo
-  #     MONGO_INITDB_ROOT_PASSWORD: mongo
 
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: mongo
+    expose:
+      - 27017
   # dynamodb:
   #   image: amazon/dynamodb-local
   #   container_name: dynamodb

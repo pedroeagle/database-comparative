@@ -11,6 +11,7 @@
     "express": "~4.16.1",
     "extract-zip": "^2.0.1",
     "http-errors": "~1.6.3",
+    "mongoose": "^6.5.1",
     "morgan": "~1.9.1",
     "pg": "^8.7.3",
     "pug": "2.0.0-beta11",
