@@ -3,25 +3,17 @@ services:
   app:
     container_name: app
     build: .
-    command: sh -c "npm start"
+    command: sh -c "cd src && node load && npm start"
     depends_on:
       - postgres
-    #   - mongo
-    #   - dynamodb
     links:
       - postgres
-    #   - mongo
-    #   - dynamodb
     environment:
-      # POSTGRES_HOST: postgres:postgres@postgres:5432
       PORT: 3000
-    entrypoint: node src/load
     ports:
       - '3000:3000'
     expose:
       - 3000
-    # networks:
-    #   - postgres
 
   postgres:
     image: postgres:14.3
@@ -31,12 +23,10 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: employees
       PGDATA: /data/postgres
-      log_error_verbosity: TERSE
     ports:
       - '5432:5432'
     expose:
       - 5432
-
   # mongo:
   #   image: mongo
   #   container_name: mongo
@@ -57,6 +47,6 @@ services:
   #   ports:
   #     - 8000:8000
   #   command: "-jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal/data/"
-# networks:
-#   postgres:
-#     name: postgres
+  # networks:
+  #   postgres:
+  #     name: postgres

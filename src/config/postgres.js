@@ -4,5 +4,6 @@ module.exports = {
     username: 'postgres',
     password: 'postgres',
     database: 'employees',
-    dialect: 'postgres'
+    dialect: 'postgres',
+    logging: false
 };
