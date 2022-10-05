@@ -1,5 +1,5 @@
 start:
-	docker-compose up --build
+	docker-compose up
 load: #loads database on mysql
 	docker exec -it mysql rm -rf /usr/share/dump
 	docker cp dump mysql:/usr/share/dump
