@@ -21,7 +21,12 @@ const loadPostgresDatabase = async () => {
 }
 
 const extractDumpFile = async () => {
-    await extract(path, { dir: __dirname + '/../../dump' })
+    const config = { dir: __dirname + '/../../dump' }
+    if (!fs.existsSync(config.dir)) {
+        await extract(path, config)
+    } else {
+        console.log('Dump file is already extracted.')
+    }
 }
 
 const resetPostgresDatabase = async () => {
@@ -34,10 +39,10 @@ const resetPostgresDatabase = async () => {
 
 const loadMongoDatabase = async () => {
     await waitPort({ port: 27017, host: 'mongo' })
-    exec('mongoimport --db employees --collection employees --file ../dump/employees.json --jsonArray --username mongo --password mongo --uri mongodb://mongo:mongo@mongo:27017 --authenticationDatabase admin', (err, res) => {
-        console.log(err)
-        console.log(res)
-    })
+    const collections = ['employees', 'departments', 'dept_emp', 'dept_manager']
+    for (const collection of collections) {
+        exec(`mongoimport --db employees --collection ${collection} --file ../dump/${collection}.json --jsonArray --username mongo --password mongo --uri mongodb://mongo:mongo@mongo:27017 --authenticationDatabase admin`)
+    }
 }
 
 module.exports = { loadPostgresDatabase, resetPostgresDatabase, loadMongoDatabase, extractDumpFile }
