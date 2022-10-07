@@ -1,8 +1,6 @@
-const { loadPostgresDatabase, resetPostgresDatabase, loadMongoDatabase } = require('./load')
+const { loadPostgresDatabase, extractDumpFile } = require('./load')
 const loadDatabases = async () => {
-    resetPostgresDatabase().then(async () => {
-        await loadPostgresDatabase()
-    })
-    await loadMongoDatabase()
+    await extractDumpFile()
+    await loadPostgresDatabase()
 }
 loadDatabases()

@@ -1,2 +1,4 @@
 const { sequelize, sequelize_default } = require('./postgres')
-module.exports = { sequelize, sequelize_default }
+const { mongoose } = require('./mongo')
+// const { mongooseAdmin } = require('./mongoAdmin')
+module.exports = { sequelize, sequelize_default, mongoose }
