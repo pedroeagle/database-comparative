@@ -1,4 +1,4 @@
-const { mongoose } = require('../../database')
+const { mongoose, connection } = require('../../database')
 
 const EmployeesSchema = new mongoose.Schema({
     emp_no: {
@@ -35,6 +35,6 @@ const EmployeesSchema = new mongoose.Schema({
         from_date: Date,
         to_date: Date
     }]
-})
+}, { collection: 'employees' })
 
-module.exports = { Employees: mongoose.model('employees', EmployeesSchema) }
+module.exports = { Employees: mongoose.models.employees || mongoose.model('employees', EmployeesSchema, 'employees') }

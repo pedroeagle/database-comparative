@@ -3,7 +3,7 @@ services:
   app:
     container_name: app
     build: .
-    command: sh -c "cd src && node load"
+    command: sh -c "cd src && node load && npm run dev"
     depends_on:
       - postgres
     links:

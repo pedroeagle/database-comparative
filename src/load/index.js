@@ -1,8 +1,7 @@
-const { loadPostgresDatabase, extractDumpFile } = require('./load')
+const { loadPostgresDatabase, extractDumpFile, loadMongoDatabase } = require('./load')
 const { exec } = require("child_process")
-const loadDatabases = async () => {
-    await extractDumpFile()
-    await loadPostgresDatabase()
-    exec('npm run dev')
-}
-loadDatabases()
+const load = async () =>
+    await Promise.all([extractDumpFile(), loadMongoDatabase(), loadPostgresDatabase()])
+load().then(() => {
+    process.exit()
+})

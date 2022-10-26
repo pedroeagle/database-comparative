@@ -10,7 +10,7 @@ import { TotalProfit } from '../components/dashboard/total-profit';
 import { TrafficByDevice } from '../components/dashboard/traffic-by-device';
 import { DashboardLayout } from '../components/dashboard-layout';
 
-const Page = () => (
+const Page = (props) => (
   <>
     <Head>
       <title>
@@ -112,5 +112,14 @@ Page.getLayout = (page) => (
     {page}
   </DashboardLayout>
 );
+
+export async function getServerSideProps(context) {
+  const res = await fetch('http://localhost:3000/api/employees/count')
+  const data = await res.json()
+  console.log(data)
+  return {
+    props: { data }, // will be passed to the page component as props
+  }
+}
 
 export default Page;
