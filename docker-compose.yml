@@ -3,7 +3,7 @@ services:
   app:
     container_name: app
     build: .
-    command: sh -c "node load && cd src && npm run dev"
+    command: sh -c "npm i && node load && cd src && npm i && npm run dev"
     depends_on:
       - postgres
     links:
@@ -15,8 +15,7 @@ services:
     expose:
       - 3000
     volumes:
-      - ./src:/usr/app/src
-      - ./load:/usr/app/load
+      - ./:/usr/app
 
   postgres:
     image: postgres:14.3
