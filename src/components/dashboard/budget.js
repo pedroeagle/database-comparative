@@ -1,17 +1,17 @@
-import {Avatar, Box, Card, CardContent, Grid, Typography} from '@mui/material';
+import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import MoneyIcon from '@mui/icons-material/Money';
 
-export const Budget = (props) => (
+export const Employees = ({ data: { count: { response, time: { mongo, postgres } } }, ...props }) => (
   <Card
-    sx={{height: '100%'}}
+    sx={{ height: '100%' }}
     {...props}
   >
     <CardContent>
       <Grid
         container
         spacing={3}
-        sx={{justifyContent: 'space-between'}}
+        sx={{ justifyContent: 'space-between' }}
       >
         <Grid item>
           <Typography
@@ -19,13 +19,13 @@ export const Budget = (props) => (
             gutterBottom
             variant="overline"
           >
-            BUDGET
+            EMPLOYEES
           </Typography>
           <Typography
             color="textPrimary"
             variant="h4"
           >
-            $24k
+            {response}
           </Typography>
         </Grid>
         <Grid item>
@@ -47,7 +47,7 @@ export const Budget = (props) => (
           alignItems: 'center',
         }}
       >
-        <ArrowDownwardIcon color="error" />
+        {/* <ArrowDownwardIcon color="error" />
         <Typography
           color="error"
           sx={{
@@ -62,7 +62,7 @@ export const Budget = (props) => (
           variant="caption"
         >
           Since last month
-        </Typography>
+        </Typography> */}
       </Box>
     </CardContent>
   </Card>

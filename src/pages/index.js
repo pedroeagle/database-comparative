@@ -1,16 +1,16 @@
 import Head from 'next/head';
-import {Box, Container, Grid} from '@mui/material';
-import {Budget} from '../components/dashboard/budget';
-import {LatestOrders} from '../components/dashboard/latest-orders';
-import {LatestProducts} from '../components/dashboard/latest-products';
-import {Sales} from '../components/dashboard/sales';
-import {TasksProgress} from '../components/dashboard/tasks-progress';
-import {TotalCustomers} from '../components/dashboard/total-customers';
-import {TotalProfit} from '../components/dashboard/total-profit';
-import {TrafficByDevice} from '../components/dashboard/traffic-by-device';
-import {DashboardLayout} from '../components/dashboard-layout';
+import { Box, Container, Grid } from '@mui/material';
+import { Employees } from '../components/dashboard/budget';
+import { LatestOrders } from '../components/dashboard/latest-orders';
+import { LatestProducts } from '../components/dashboard/latest-products';
+import { Sales } from '../components/dashboard/sales';
+import { Salaries } from '../components/dashboard/tasks-progress';
+import { Departments } from '../components/dashboard/total-customers';
+import { Titles } from '../components/dashboard/total-profit';
+import { TrafficByDevice } from '../components/dashboard/traffic-by-device';
+import { DashboardLayout } from '../components/dashboard-layout';
 
-const Page = (props) => (
+const Page = ({data}) => (
   <>
     <Head>
       <title>
@@ -36,7 +36,7 @@ const Page = (props) => (
             xl={3}
             xs={12}
           >
-            <Budget />
+            <Employees data={data.employees}/>
           </Grid>
           <Grid
             item
@@ -45,7 +45,7 @@ const Page = (props) => (
             sm={6}
             xs={12}
           >
-            <TotalCustomers />
+            <Departments  data={data.departments}/>
           </Grid>
           <Grid
             item
@@ -54,7 +54,7 @@ const Page = (props) => (
             sm={6}
             xs={12}
           >
-            <TasksProgress />
+            <Salaries  data={data.salaries}/>
           </Grid>
           <Grid
             item
@@ -63,7 +63,7 @@ const Page = (props) => (
             sm={6}
             xs={12}
           >
-            <TotalProfit sx={{height: '100%'}} />
+            <Titles sx={{ height: '100%' }}  data={data.titles}/>
           </Grid>
           <Grid
             item
@@ -81,7 +81,7 @@ const Page = (props) => (
             xl={3}
             xs={12}
           >
-            <TrafficByDevice sx={{height: '100%'}} />
+            <TrafficByDevice sx={{ height: '100%' }} />
           </Grid>
           <Grid
             item
@@ -90,7 +90,7 @@ const Page = (props) => (
             xl={3}
             xs={12}
           >
-            <LatestProducts sx={{height: '100%'}} />
+            <LatestProducts sx={{ height: '100%' }} />
           </Grid>
           <Grid
             item
@@ -113,12 +113,21 @@ Page.getLayout = (page) => (
   </DashboardLayout>
 );
 
-export async function getServerSideProps(context) {
-  const postgres = await fetch('http://localhost:3000/api/postgres/departments/count');
-  const mongo = await fetch('http://localhost:3000/api/mongo/departments/count');
-  console.log(await postgres.json(), await mongo.json());
+export async function getServerSideProps() {
+  const data = {}
+  const models = ['employees', 'departments', 'salaries', 'titles']
+  for (const model of models) {
+    data[model] = {}
+    data[model]['count'] = {}
+    data[model]['count']['time'] = {}
+    for (const db of ['mongo', 'postgres']) {
+      const { response, time } = await (await fetch(`http://localhost:3000/api/${db}/${model}/count`)).json()
+      data[model]['count']['response'] = response
+      data[model]['count']['time'][db] = time
+    }
+  }
   return {
-    props: { }, // will be passed to the page component as props
+    props: {data}
   };
 }
 
