@@ -1,7 +1,7 @@
 import {Avatar, Card, CardContent, Grid, Typography} from '@mui/material';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
-export const Titles = ({ data: { count: { response, time: { mongo, postgres } } }, ...props }) => (
+export const Salaries = ({ data: { count: { response, time: { mongo, postgres } } }, ...props }) => (
   <Card {...props}>
     <CardContent>
       <Grid
@@ -15,7 +15,7 @@ export const Titles = ({ data: { count: { response, time: { mongo, postgres } } 
             gutterBottom
             variant="overline"
           >
-            TITLES
+            SALARIES
           </Typography>
           <Typography
             color="textPrimary"

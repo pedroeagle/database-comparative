@@ -1,12 +1,12 @@
 import Head from 'next/head';
 import { Box, Container, Grid } from '@mui/material';
-import { Employees } from '../components/dashboard/budget';
+import { Departments } from '../components/dashboard/budget';
 import { LatestOrders } from '../components/dashboard/latest-orders';
 import { LatestProducts } from '../components/dashboard/latest-products';
 import { Sales } from '../components/dashboard/sales';
-import { Salaries } from '../components/dashboard/tasks-progress';
-import { Departments } from '../components/dashboard/total-customers';
-import { Titles } from '../components/dashboard/total-profit';
+import { Titles } from '../components/dashboard/tasks-progress';
+import { Employees } from '../components/dashboard/total-customers';
+import { Salaries } from '../components/dashboard/total-profit';
 import { TrafficByDevice } from '../components/dashboard/traffic-by-device';
 import { DashboardLayout } from '../components/dashboard-layout';
 
@@ -36,7 +36,7 @@ const Page = ({data}) => (
             xl={3}
             xs={12}
           >
-            <Employees data={data.employees}/>
+            <Departments data={data.departments}/>
           </Grid>
           <Grid
             item
@@ -45,7 +45,7 @@ const Page = ({data}) => (
             sm={6}
             xs={12}
           >
-            <Departments  data={data.departments}/>
+            <Employees  data={data.employees}/>
           </Grid>
           <Grid
             item
@@ -54,7 +54,7 @@ const Page = ({data}) => (
             sm={6}
             xs={12}
           >
-            <Salaries  data={data.salaries}/>
+            <Titles  data={data.titles}/>
           </Grid>
           <Grid
             item
@@ -63,7 +63,7 @@ const Page = ({data}) => (
             sm={6}
             xs={12}
           >
-            <Titles sx={{ height: '100%' }}  data={data.titles}/>
+            <Salaries sx={{ height: '100%' }}  data={data.salaries}/>
           </Grid>
           <Grid
             item

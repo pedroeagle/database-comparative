@@ -2,7 +2,7 @@ import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material'
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import MoneyIcon from '@mui/icons-material/Money';
 
-export const Employees = ({ data: { count: { response, time: { mongo, postgres } } }, ...props }) => (
+export const Departments = ({ data: { count: { response, time: { mongo, postgres } } }, ...props }) => (
   <Card
     sx={{ height: '100%' }}
     {...props}
@@ -19,7 +19,7 @@ export const Employees = ({ data: { count: { response, time: { mongo, postgres }
             gutterBottom
             variant="overline"
           >
-            EMPLOYEES
+            DEPARTMENTS
           </Typography>
           <Typography
             color="textPrimary"

@@ -1,7 +1,7 @@
 import {Avatar, Box, Card, CardContent, Grid, LinearProgress, Typography} from '@mui/material';
 import InsertChartIcon from '@mui/icons-material/InsertChartOutlined';
 
-export const Salaries = ({ data: { count: { response, time: { mongo, postgres } } }, ...props }) => (
+export const Titles = ({ data: { count: { response, time: { mongo, postgres } } }, ...props }) => (
   <Card
     sx={{height: '100%'}}
     {...props}
@@ -18,7 +18,7 @@ export const Salaries = ({ data: { count: { response, time: { mongo, postgres } 
             gutterBottom
             variant="overline"
           >
-            SALARIES
+            TITLES
           </Typography>
           <Typography
             color="textPrimary"
