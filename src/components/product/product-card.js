@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
-import { Avatar, Box, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
-import { Clock as ClockIcon } from '../../icons/clock';
-import { Download as DownloadIcon } from '../../icons/download';
+import {Avatar, Box, Card, CardContent, Divider, Grid, Typography} from '@mui/material';
+import {Clock as ClockIcon} from '../../icons/clock';
+import {Download as DownloadIcon} from '../../icons/download';
 
-export const ProductCard = ({ product, ...rest }) => (
+export const ProductCard = ({product, ...rest}) => (
   <Card
     sx={{
       display: 'flex',
       flexDirection: 'column',
-      height: '100%'
+      height: '100%',
     }}
     {...rest}
   >
@@ -17,7 +17,7 @@ export const ProductCard = ({ product, ...rest }) => (
         sx={{
           display: 'flex',
           justifyContent: 'center',
-          pb: 3
+          pb: 3,
         }}
       >
         <Avatar
@@ -42,26 +42,26 @@ export const ProductCard = ({ product, ...rest }) => (
         {product.description}
       </Typography>
     </CardContent>
-    <Box sx={{ flexGrow: 1 }} />
+    <Box sx={{flexGrow: 1}} />
     <Divider />
-    <Box sx={{ p: 2 }}>
+    <Box sx={{p: 2}}>
       <Grid
         container
         spacing={2}
-        sx={{ justifyContent: 'space-between' }}
+        sx={{justifyContent: 'space-between'}}
       >
         <Grid
           item
           sx={{
             alignItems: 'center',
-            display: 'flex'
+            display: 'flex',
           }}
         >
           <ClockIcon color="action" />
           <Typography
             color="textSecondary"
             display="inline"
-            sx={{ pl: 1 }}
+            sx={{pl: 1}}
             variant="body2"
           >
             Updated 2hr ago
@@ -71,14 +71,14 @@ export const ProductCard = ({ product, ...rest }) => (
           item
           sx={{
             alignItems: 'center',
-            display: 'flex'
+            display: 'flex',
           }}
         >
           <DownloadIcon color="action" />
           <Typography
             color="textSecondary"
             display="inline"
-            sx={{ pl: 1 }}
+            sx={{pl: 1}}
             variant="body2"
           >
             {product.totalDownloads}
@@ -92,5 +92,5 @@ export const ProductCard = ({ product, ...rest }) => (
 );
 
 ProductCard.propTypes = {
-  product: PropTypes.object.isRequired
+  product: PropTypes.object.isRequired,
 };

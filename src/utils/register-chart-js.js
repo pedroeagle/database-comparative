@@ -8,19 +8,19 @@ import {
   LineElement,
   PointElement,
   Title,
-  Tooltip
+  Tooltip,
 } from 'chart.js';
 
 export const registerChartJs = () => {
   Chart.register(
-    ArcElement,
-    BarElement,
-    CategoryScale,
-    Legend,
-    LineElement,
-    LinearScale,
-    PointElement,
-    Title,
-    Tooltip
+      ArcElement,
+      BarElement,
+      CategoryScale,
+      Legend,
+      LineElement,
+      LinearScale,
+      PointElement,
+      Title,
+      Tooltip,
   );
 };

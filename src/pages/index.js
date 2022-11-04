@@ -1,14 +1,14 @@
 import Head from 'next/head';
-import { Box, Container, Grid } from '@mui/material';
-import { Budget } from '../components/dashboard/budget';
-import { LatestOrders } from '../components/dashboard/latest-orders';
-import { LatestProducts } from '../components/dashboard/latest-products';
-import { Sales } from '../components/dashboard/sales';
-import { TasksProgress } from '../components/dashboard/tasks-progress';
-import { TotalCustomers } from '../components/dashboard/total-customers';
-import { TotalProfit } from '../components/dashboard/total-profit';
-import { TrafficByDevice } from '../components/dashboard/traffic-by-device';
-import { DashboardLayout } from '../components/dashboard-layout';
+import {Box, Container, Grid} from '@mui/material';
+import {Budget} from '../components/dashboard/budget';
+import {LatestOrders} from '../components/dashboard/latest-orders';
+import {LatestProducts} from '../components/dashboard/latest-products';
+import {Sales} from '../components/dashboard/sales';
+import {TasksProgress} from '../components/dashboard/tasks-progress';
+import {TotalCustomers} from '../components/dashboard/total-customers';
+import {TotalProfit} from '../components/dashboard/total-profit';
+import {TrafficByDevice} from '../components/dashboard/traffic-by-device';
+import {DashboardLayout} from '../components/dashboard-layout';
 
 const Page = (props) => (
   <>
@@ -21,7 +21,7 @@ const Page = (props) => (
       component="main"
       sx={{
         flexGrow: 1,
-        py: 8
+        py: 8,
       }}
     >
       <Container maxWidth={false}>
@@ -63,7 +63,7 @@ const Page = (props) => (
             sm={6}
             xs={12}
           >
-            <TotalProfit sx={{ height: '100%' }} />
+            <TotalProfit sx={{height: '100%'}} />
           </Grid>
           <Grid
             item
@@ -81,7 +81,7 @@ const Page = (props) => (
             xl={3}
             xs={12}
           >
-            <TrafficByDevice sx={{ height: '100%' }} />
+            <TrafficByDevice sx={{height: '100%'}} />
           </Grid>
           <Grid
             item
@@ -90,7 +90,7 @@ const Page = (props) => (
             xl={3}
             xs={12}
           >
-            <LatestProducts sx={{ height: '100%' }} />
+            <LatestProducts sx={{height: '100%'}} />
           </Grid>
           <Grid
             item
@@ -114,12 +114,12 @@ Page.getLayout = (page) => (
 );
 
 export async function getServerSideProps(context) {
-  const postgres = await fetch('http://localhost:3000/api/postgres/employees/count')
-  const mongo = await fetch('http://localhost:3000/api/mongo/employees/count')
-  console.log(await postgres.json(), await mongo.json())
+  const postgres = await fetch('http://localhost:3000/api/postgres/departments/count');
+  const mongo = await fetch('http://localhost:3000/api/mongo/departments/count');
+  console.log(await postgres.json(), await mongo.json());
   return {
     props: { }, // will be passed to the page component as props
-  }
+  };
 }
 
 export default Page;

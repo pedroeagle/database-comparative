@@ -1,17 +1,17 @@
-import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material';
+import {Avatar, Box, Card, CardContent, Grid, Typography} from '@mui/material';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import MoneyIcon from '@mui/icons-material/Money';
 
 export const Budget = (props) => (
   <Card
-    sx={{ height: '100%' }}
+    sx={{height: '100%'}}
     {...props}
   >
     <CardContent>
       <Grid
         container
         spacing={3}
-        sx={{ justifyContent: 'space-between' }}
+        sx={{justifyContent: 'space-between'}}
       >
         <Grid item>
           <Typography
@@ -33,7 +33,7 @@ export const Budget = (props) => (
             sx={{
               backgroundColor: 'error.main',
               height: 56,
-              width: 56
+              width: 56,
             }}
           >
             <MoneyIcon />
@@ -44,14 +44,14 @@ export const Budget = (props) => (
         sx={{
           pt: 2,
           display: 'flex',
-          alignItems: 'center'
+          alignItems: 'center',
         }}
       >
         <ArrowDownwardIcon color="error" />
         <Typography
           color="error"
           sx={{
-            mr: 1
+            mr: 1,
           }}
           variant="body2"
         >

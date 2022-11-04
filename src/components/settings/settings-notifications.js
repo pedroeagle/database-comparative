@@ -8,7 +8,7 @@ import {
   Divider,
   FormControlLabel,
   Grid,
-  Typography
+  Typography,
 } from '@mui/material';
 
 export const SettingsNotifications = (props) => (
@@ -31,7 +31,7 @@ export const SettingsNotifications = (props) => (
             sm={6}
             sx={{
               display: 'flex',
-              flexDirection: 'column'
+              flexDirection: 'column',
             }}
             xs={12}
           >
@@ -80,7 +80,7 @@ export const SettingsNotifications = (props) => (
             sm={6}
             sx={{
               display: 'flex',
-              flexDirection: 'column'
+              flexDirection: 'column',
             }}
             xs={12}
           >
@@ -121,7 +121,7 @@ export const SettingsNotifications = (props) => (
         sx={{
           display: 'flex',
           justifyContent: 'flex-end',
-          p: 2
+          p: 2,
         }}
       >
         <Button

@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import { Box, Container, Typography } from '@mui/material';
-import { DashboardLayout } from '../components/dashboard-layout';
-import { SettingsNotifications } from '../components/settings/settings-notifications';
-import { SettingsPassword } from '../components/settings/settings-password';
+import {Box, Container, Typography} from '@mui/material';
+import {DashboardLayout} from '../components/dashboard-layout';
+import {SettingsNotifications} from '../components/settings/settings-notifications';
+import {SettingsPassword} from '../components/settings/settings-password';
 
 const Page = () => (
   <>
@@ -15,18 +15,18 @@ const Page = () => (
       component="main"
       sx={{
         flexGrow: 1,
-        py: 8
+        py: 8,
       }}
     >
       <Container maxWidth="lg">
         <Typography
-          sx={{ mb: 3 }}
+          sx={{mb: 3}}
           variant="h4"
         >
           Settings
         </Typography>
         <SettingsNotifications />
-        <Box sx={{ pt: 3 }}>
+        <Box sx={{pt: 3}}>
           <SettingsPassword />
         </Box>
       </Container>

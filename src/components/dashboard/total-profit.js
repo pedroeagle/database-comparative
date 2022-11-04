@@ -1,4 +1,4 @@
-import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
+import {Avatar, Card, CardContent, Grid, Typography} from '@mui/material';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 export const TotalProfit = (props) => (
@@ -7,7 +7,7 @@ export const TotalProfit = (props) => (
       <Grid
         container
         spacing={3}
-        sx={{ justifyContent: 'space-between' }}
+        sx={{justifyContent: 'space-between'}}
       >
         <Grid item>
           <Typography
@@ -29,7 +29,7 @@ export const TotalProfit = (props) => (
             sx={{
               backgroundColor: 'primary.main',
               height: 56,
-              width: 56
+              width: 56,
             }}
           >
             <AttachMoneyIcon />

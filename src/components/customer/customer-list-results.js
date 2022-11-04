@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
-import { format } from 'date-fns';
+import {format} from 'date-fns';
 import {
   Avatar,
   Box,
@@ -13,11 +13,11 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography
+  Typography,
 } from '@mui/material';
-import { getInitials } from '../../utils/get-initials';
+import {getInitials} from '../../utils/get-initials';
 
-export const CustomerListResults = ({ customers, ...rest }) => {
+export const CustomerListResults = ({customers, ...rest}) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -46,8 +46,8 @@ export const CustomerListResults = ({ customers, ...rest }) => {
       newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
     } else if (selectedIndex > 0) {
       newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
+          selectedCustomerIds.slice(0, selectedIndex),
+          selectedCustomerIds.slice(selectedIndex + 1),
       );
     }
 
@@ -65,7 +65,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   return (
     <Card {...rest}>
       <PerfectScrollbar>
-        <Box sx={{ minWidth: 1050 }}>
+        <Box sx={{minWidth: 1050}}>
           <Table>
             <TableHead>
               <TableRow>
@@ -74,8 +74,8 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                     checked={selectedCustomerIds.length === customers.length}
                     color="primary"
                     indeterminate={
-                      selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < customers.length
+                      selectedCustomerIds.length > 0 &&
+                      selectedCustomerIds.length < customers.length
                     }
                     onChange={handleSelectAll}
                   />
@@ -115,12 +115,12 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                     <Box
                       sx={{
                         alignItems: 'center',
-                        display: 'flex'
+                        display: 'flex',
                       }}
                     >
                       <Avatar
                         src={customer.avatarUrl}
-                        sx={{ mr: 2 }}
+                        sx={{mr: 2}}
                       >
                         {getInitials(customer.name)}
                       </Avatar>
@@ -164,5 +164,5 @@ export const CustomerListResults = ({ customers, ...rest }) => {
 };
 
 CustomerListResults.propTypes = {
-  customers: PropTypes.array.isRequired
+  customers: PropTypes.array.isRequired,
 };

@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { Box, Button, Card, CardContent, CardHeader, Divider, TextField } from '@mui/material';
+import {useState} from 'react';
+import {Box, Button, Card, CardContent, CardHeader, Divider, TextField} from '@mui/material';
 
 export const SettingsPassword = (props) => {
   const [values, setValues] = useState({
     password: '',
-    confirm: ''
+    confirm: '',
   });
 
   const handleChange = (event) => {
     setValues({
       ...values,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   };
 
@@ -49,7 +49,7 @@ export const SettingsPassword = (props) => {
           sx={{
             display: 'flex',
             justifyContent: 'flex-end',
-            p: 2
+            p: 2,
           }}
         >
           <Button

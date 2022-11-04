@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import Head from 'next/head';
 import NextLink from 'next/link';
-import { useFormik } from 'formik';
+import {useFormik} from 'formik';
 import * as Yup from 'yup';
-import { Box, Button, FormHelperText, Grid, Tab, Tabs, TextField, Typography } from '@mui/material';
-import { auth, ENABLE_AUTH } from '../../lib/auth';
-import { Logo } from '../../components/logo';
-import { useAuthContext } from '../../contexts/auth-context';
+import {Box, Button, FormHelperText, Grid, Tab, Tabs, TextField, Typography} from '@mui/material';
+import {auth, ENABLE_AUTH} from '../../lib/auth';
+import {Logo} from '../../components/logo';
+import {useAuthContext} from '../../contexts/auth-context';
 import Router from 'next/router';
 
 const Page = () => {
@@ -16,14 +16,14 @@ const Page = () => {
   const formik = useFormik({
     initialValues: {
       email: '',
-      submit: null
+      submit: null,
     },
     validationSchema: Yup.object({
       email: Yup
-        .string()
-        .email('Must be a valid email')
-        .max(255)
-        .required('Email is required')
+          .string()
+          .email('Must be a valid email')
+          .max(255)
+          .required('Email is required'),
     }),
     onSubmit: async (values, helpers) => {
       if (!ENABLE_AUTH) {
@@ -40,7 +40,7 @@ const Page = () => {
         // This can be call inside AuthProvider component, but we do it here for simplicity
         await auth.signInWithLink('start', {
           email: values.email,
-          redirectUri
+          redirectUri,
         });
         helpers.setSubmitting(false);
         setEmailSent(true);
@@ -49,7 +49,7 @@ const Page = () => {
         helpers.setFieldError('submit', err.message || 'Something went wrong');
         helpers.setSubmitting(false);
       }
-    }
+    },
   });
 
   const handleTabChange = (event, value) => {
@@ -72,8 +72,8 @@ const Page = () => {
 
     // Redirect to home page
     Router
-      .push('/')
-      .catch(console.error);
+        .push('/')
+        .catch(console.error);
   };
 
   return (
@@ -85,12 +85,12 @@ const Page = () => {
         component="main"
         sx={{
           display: 'flex',
-          flex: '1 1 auto'
+          flex: '1 1 auto',
         }}
       >
         <Grid
           container
-          sx={{ flex: '1 1 auto' }}
+          sx={{flex: '1 1 auto'}}
         >
           <Grid
             item
@@ -100,7 +100,7 @@ const Page = () => {
               backgroundColor: 'neutral.50',
               display: 'flex',
               flexDirection: 'column',
-              position: 'relative'
+              position: 'relative',
             }}
           >
             <Box
@@ -109,7 +109,7 @@ const Page = () => {
                 top: 0,
                 left: 0,
                 width: '100%',
-                p: 3
+                p: 3,
               }}
             >
               <NextLink
@@ -120,7 +120,7 @@ const Page = () => {
                   <Logo
                     sx={{
                       height: 42,
-                      width: 42
+                      width: 42,
                     }}
                   />
                 </a>
@@ -131,7 +131,7 @@ const Page = () => {
                 flex: '1 1 auto',
                 alignItems: 'center',
                 display: 'flex',
-                justifyContent: 'center'
+                justifyContent: 'center',
               }}
             >
               <Box
@@ -139,13 +139,13 @@ const Page = () => {
                   maxWidth: 500,
                   px: 3,
                   py: '100px',
-                  width: '100%'
+                  width: '100%',
                 }}
               >
                 {emailSent ? (
                   <div>
                     <Typography
-                      sx={{ mb: 1 }}
+                      sx={{mb: 1}}
                       variant="h4"
                     >
                       Confirm your email
@@ -155,7 +155,7 @@ const Page = () => {
                       <Box
                         component="span"
                         sx={{
-                          color: 'primary.main'
+                          color: 'primary.main',
                         }}
                       >
                         {formik.values.email}
@@ -168,7 +168,7 @@ const Page = () => {
                         alignItems: 'center',
                         display: 'flex',
                         gap: 3,
-                        mt: 3
+                        mt: 3,
                       }}
                     >
                       <Typography
@@ -188,21 +188,21 @@ const Page = () => {
                 ) : (
                   <div>
                     <Typography
-                      sx={{ mb: 1 }}
+                      sx={{mb: 1}}
                       variant="h4"
                     >
                       Welcome
                     </Typography>
                     <Typography
                       color="text.secondary"
-                      sx={{ mb: 3 }}
+                      sx={{mb: 3}}
                       variant="body2"
                     >
                       Sign up on the internal platform
                     </Typography>
                     <Tabs
                       onChange={handleTabChange}
-                      sx={{ mb: 3 }}
+                      sx={{mb: 3}}
                       value={tab}
                     >
                       <Tab
@@ -228,13 +228,13 @@ const Page = () => {
                           value={formik.values.email}
                           variant="outlined"
                         />
-                        <FormHelperText sx={{ mt: 1 }}>
+                        <FormHelperText sx={{mt: 1}}>
                           Enter a valid email since this is a fully integrated authentication system. Optionally you can skip.
                         </FormHelperText>
                         {formik.errors.submit && (
                           <Typography
                             color="error"
-                            sx={{ mt: 2 }}
+                            sx={{mt: 2}}
                             variant="body2"
                           >
                             {formik.errors.submit}
@@ -243,7 +243,7 @@ const Page = () => {
                         <Button
                           fullWidth
                           size="large"
-                          sx={{ mt: 3 }}
+                          sx={{mt: 3}}
                           onClick={() => formik.handleSubmit()}
                           variant="contained"
                         >
@@ -252,7 +252,7 @@ const Page = () => {
                         <Button
                           fullWidth
                           size="large"
-                          sx={{ mt: 3 }}
+                          sx={{mt: 3}}
                           onClick={handleSkip}
                         >
                           Skip authentication
@@ -262,7 +262,7 @@ const Page = () => {
                     {tab === 'phoneNumber' && (
                       <div>
                         <Typography
-                          sx={{ mb: 1 }}
+                          sx={{mb: 1}}
                           variant="h6"
                         >
                           Not available in the demo
@@ -282,24 +282,24 @@ const Page = () => {
             xs={12}
             lg={6}
             sx={{
-              alignItems: 'center',
-              background: 'radial-gradient(50% 50% at 50% 50%, #122647 0%, #090E23 100%)',
-              color: 'white',
-              display: 'flex',
-              justifyContent: 'center',
+              'alignItems': 'center',
+              'background': 'radial-gradient(50% 50% at 50% 50%, #122647 0%, #090E23 100%)',
+              'color': 'white',
+              'display': 'flex',
+              'justifyContent': 'center',
               '& img': {
-                maxWidth: '100%'
-              }
+                maxWidth: '100%',
+              },
             }}
           >
-            <Box sx={{ p: 3 }}>
+            <Box sx={{p: 3}}>
               <Typography
                 align="center"
                 color="inherit"
                 sx={{
                   fontSize: '24px',
                   lineHeight: '32px',
-                  mb: 1
+                  mb: 1,
                 }}
                 variant="h1"
               >
@@ -307,7 +307,7 @@ const Page = () => {
                 <Box
                   component="a"
                   href="https://zalter.com?ref=devias-mk-react"
-                  sx={{ color: '#15B79E' }}
+                  sx={{color: '#15B79E'}}
                   target="_blank"
                 >
                   zalter.com
@@ -315,7 +315,7 @@ const Page = () => {
               </Typography>
               <Typography
                 align="center"
-                sx={{ mb: 3 }}
+                sx={{mb: 3}}
                 variant="subtitle1"
               >
                 Create secure, seamless user experiences with Zalter Passwordless Authentication.

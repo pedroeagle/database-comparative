@@ -1,16 +1,16 @@
-import { Avatar, Box, Card, CardContent, Grid, LinearProgress, Typography } from '@mui/material';
+import {Avatar, Box, Card, CardContent, Grid, LinearProgress, Typography} from '@mui/material';
 import InsertChartIcon from '@mui/icons-material/InsertChartOutlined';
 
 export const TasksProgress = (props) => (
   <Card
-    sx={{ height: '100%' }}
+    sx={{height: '100%'}}
     {...props}
   >
     <CardContent>
       <Grid
         container
         spacing={3}
-        sx={{ justifyContent: 'space-between' }}
+        sx={{justifyContent: 'space-between'}}
       >
         <Grid item>
           <Typography
@@ -32,14 +32,14 @@ export const TasksProgress = (props) => (
             sx={{
               backgroundColor: 'warning.main',
               height: 56,
-              width: 56
+              width: 56,
             }}
           >
             <InsertChartIcon />
           </Avatar>
         </Grid>
       </Grid>
-      <Box sx={{ pt: 3 }}>
+      <Box sx={{pt: 3}}>
         <LinearProgress
           value={75.5}
           variant="determinate"

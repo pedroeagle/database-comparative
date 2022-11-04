@@ -6,7 +6,7 @@ import {
   CardActions,
   CardContent,
   Divider,
-  Typography
+  Typography,
 } from '@mui/material';
 
 const user = {
@@ -15,7 +15,7 @@ const user = {
   country: 'USA',
   jobTitle: 'Senior Developer',
   name: 'Katarina Smith',
-  timezone: 'GTM-7'
+  timezone: 'GTM-7',
 };
 
 export const AccountProfile = (props) => (
@@ -25,7 +25,7 @@ export const AccountProfile = (props) => (
         sx={{
           alignItems: 'center',
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
         }}
       >
         <Avatar
@@ -33,7 +33,7 @@ export const AccountProfile = (props) => (
           sx={{
             height: 64,
             mb: 2,
-            width: 64
+            width: 64,
           }}
         />
         <Typography

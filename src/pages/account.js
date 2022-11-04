@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import { Box, Container, Grid, Typography } from '@mui/material';
-import { AccountProfile } from '../components/account/account-profile';
-import { AccountProfileDetails } from '../components/account/account-profile-details';
-import { DashboardLayout } from '../components/dashboard-layout';
+import {Box, Container, Grid, Typography} from '@mui/material';
+import {AccountProfile} from '../components/account/account-profile';
+import {AccountProfileDetails} from '../components/account/account-profile-details';
+import {DashboardLayout} from '../components/dashboard-layout';
 
 const Page = () => (
   <>
@@ -15,12 +15,12 @@ const Page = () => (
       component="main"
       sx={{
         flexGrow: 1,
-        py: 8
+        py: 8,
       }}
     >
       <Container maxWidth="lg">
         <Typography
-          sx={{ mb: 3 }}
+          sx={{mb: 3}}
           variant="h4"
         >
           Account

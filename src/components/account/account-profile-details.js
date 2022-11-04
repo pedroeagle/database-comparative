@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import {
   Box,
   Button,
@@ -7,22 +7,22 @@ import {
   CardHeader,
   Divider,
   Grid,
-  TextField
+  TextField,
 } from '@mui/material';
 
 const states = [
   {
     value: 'alabama',
-    label: 'Alabama'
+    label: 'Alabama',
   },
   {
     value: 'new-york',
-    label: 'New York'
+    label: 'New York',
   },
   {
     value: 'san-francisco',
-    label: 'San Francisco'
-  }
+    label: 'San Francisco',
+  },
 ];
 
 export const AccountProfileDetails = (props) => {
@@ -32,13 +32,13 @@ export const AccountProfileDetails = (props) => {
     email: 'demo@devias.io',
     phone: '',
     state: 'Alabama',
-    country: 'USA'
+    country: 'USA',
   });
 
   const handleChange = (event) => {
     setValues({
       ...values,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   };
 
@@ -147,7 +147,7 @@ export const AccountProfileDetails = (props) => {
                 onChange={handleChange}
                 required
                 select
-                SelectProps={{ native: true }}
+                SelectProps={{native: true}}
                 value={values.state}
                 variant="outlined"
               >
@@ -168,7 +168,7 @@ export const AccountProfileDetails = (props) => {
           sx={{
             display: 'flex',
             justifyContent: 'flex-end',
-            p: 2
+            p: 2,
           }}
         >
           <Button

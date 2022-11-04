@@ -1,7 +1,7 @@
-import { sequelize } from '../../database/postgres'
-import { Sequelize, DataTypes } from 'sequelize'
+import {sequelize} from '../../database/postgres';
+import {DataTypes} from 'sequelize';
 
-export const Employees = sequelize.define("employees", {
+export const Employees = sequelize.define('employees', {
   emp_no: {
     type: DataTypes.INTEGER,
   },
@@ -12,15 +12,15 @@ export const Employees = sequelize.define("employees", {
     type: DataTypes.STRING,
   },
   last_name: {
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
   },
   gender: {
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
   },
   hire_date: {
-    type: DataTypes.DATE
-  }
+    type: DataTypes.DATE,
+  },
 },
-  {
-    timestamps: false,
-  });
+{
+  timestamps: false,
+});

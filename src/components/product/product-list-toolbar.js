@@ -6,11 +6,11 @@ import {
   TextField,
   InputAdornment,
   SvgIcon,
-  Typography
+  Typography,
 } from '@mui/material';
-import { Download as DownloadIcon } from '../../icons/download';
-import { Search as SearchIcon } from '../../icons/search';
-import { Upload as UploadIcon } from '../../icons/upload';
+import {Download as DownloadIcon} from '../../icons/download';
+import {Search as SearchIcon} from '../../icons/search';
+import {Upload as UploadIcon} from '../../icons/upload';
 
 export const ProductListToolbar = (props) => (
   <Box {...props}>
@@ -20,25 +20,25 @@ export const ProductListToolbar = (props) => (
         display: 'flex',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
-        m: -1
+        m: -1,
       }}
     >
       <Typography
-        sx={{ m: 1 }}
+        sx={{m: 1}}
         variant="h4"
       >
         Products
       </Typography>
-      <Box sx={{ m: 1 }}>
+      <Box sx={{m: 1}}>
         <Button
           startIcon={(<UploadIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
+          sx={{mr: 1}}
         >
           Import
         </Button>
         <Button
           startIcon={(<DownloadIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
+          sx={{mr: 1}}
         >
           Export
         </Button>
@@ -50,10 +50,10 @@ export const ProductListToolbar = (props) => (
         </Button>
       </Box>
     </Box>
-    <Box sx={{ mt: 3 }}>
+    <Box sx={{mt: 3}}>
       <Card>
         <CardContent>
-          <Box sx={{ maxWidth: 500 }}>
+          <Box sx={{maxWidth: 500}}>
             <TextField
               fullWidth
               InputProps={{
@@ -66,7 +66,7 @@ export const ProductListToolbar = (props) => (
                       <SearchIcon />
                     </SvgIcon>
                   </InputAdornment>
-                )
+                ),
               }}
               placeholder="Search product"
               variant="outlined"

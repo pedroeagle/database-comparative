@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import NextLink from 'next/link';
-import { Box, Button, Container, Typography } from '@mui/material';
+import {Box, Button, Container, Typography} from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const Page = () => (
@@ -16,7 +16,7 @@ const Page = () => (
         alignItems: 'center',
         display: 'flex',
         flexGrow: 1,
-        minHeight: '100%'
+        minHeight: '100%',
       }}
     >
       <Container maxWidth="md">
@@ -24,7 +24,7 @@ const Page = () => (
           sx={{
             alignItems: 'center',
             display: 'flex',
-            flexDirection: 'column'
+            flexDirection: 'column',
           }}
         >
           <Typography
@@ -42,7 +42,7 @@ const Page = () => (
             You either tried some shady route or you came here by mistake.
             Whichever it is, try using the navigation
           </Typography>
-          <Box sx={{ textAlign: 'center' }}>
+          <Box sx={{textAlign: 'center'}}>
             <img
               alt="Under development"
               src="/static/images/undraw_page_not_found_su7k.svg"
@@ -50,7 +50,7 @@ const Page = () => (
                 marginTop: 50,
                 display: 'inline-block',
                 maxWidth: '100%',
-                width: 560
+                width: 560,
               }}
             />
           </Box>
@@ -61,7 +61,7 @@ const Page = () => (
             <Button
               component="a"
               startIcon={(<ArrowBackIcon fontSize="small" />)}
-              sx={{ mt: 3 }}
+              sx={{mt: 3}}
               variant="contained"
             >
               Go back to dashboard

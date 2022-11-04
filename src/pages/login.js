@@ -1,35 +1,35 @@
 import Head from 'next/head';
 import NextLink from 'next/link';
 import Router from 'next/router';
-import { useFormik } from 'formik';
+import {useFormik} from 'formik';
 import * as Yup from 'yup';
-import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
+import {Box, Button, Container, Grid, Link, TextField, Typography} from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Facebook as FacebookIcon } from '../icons/facebook';
-import { Google as GoogleIcon } from '../icons/google';
+import {Facebook as FacebookIcon} from '../icons/facebook';
+import {Google as GoogleIcon} from '../icons/google';
 
 const Login = () => {
   const formik = useFormik({
     initialValues: {
       email: 'demo@devias.io',
-      password: 'Password123'
+      password: 'Password123',
     },
     validationSchema: Yup.object({
       email: Yup
-        .string()
-        .email('Must be a valid email')
-        .max(255)
-        .required('Email is required'),
+          .string()
+          .email('Must be a valid email')
+          .max(255)
+          .required('Email is required'),
       password: Yup
-        .string()
-        .max(255)
-        .required('Password is required')
+          .string()
+          .max(255)
+          .required('Password is required'),
     }),
     onSubmit: () => {
       Router
-        .push('/')
-        .catch(console.error);
-    }
+          .push('/')
+          .catch(console.error);
+    },
   });
 
   return (
@@ -43,7 +43,7 @@ const Login = () => {
           alignItems: 'center',
           display: 'flex',
           flexGrow: 1,
-          minHeight: '100%'
+          minHeight: '100%',
         }}
       >
         <Container maxWidth="sm">
@@ -59,7 +59,7 @@ const Login = () => {
             </Button>
           </NextLink>
           <form onSubmit={formik.handleSubmit}>
-            <Box sx={{ my: 3 }}>
+            <Box sx={{my: 3}}>
               <Typography
                 color="textPrimary"
                 variant="h4"
@@ -114,7 +114,7 @@ const Login = () => {
             <Box
               sx={{
                 pb: 1,
-                pt: 3
+                pt: 3,
               }}
             >
               <Typography
@@ -151,7 +151,7 @@ const Login = () => {
               value={formik.values.password}
               variant="outlined"
             />
-            <Box sx={{ py: 2 }}>
+            <Box sx={{py: 2}}>
               <Button
                 color="primary"
                 disabled={formik.isSubmitting}
@@ -177,7 +177,7 @@ const Login = () => {
                   variant="subtitle2"
                   underline="hover"
                   sx={{
-                    cursor: 'pointer'
+                    cursor: 'pointer',
                   }}
                 >
                   Sign Up

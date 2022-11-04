@@ -1,17 +1,17 @@
-import { createContext, useContext, useEffect, useReducer, useRef } from 'react';
+import {createContext, useContext, useEffect, useReducer, useRef} from 'react';
 import PropTypes from 'prop-types';
-import { auth, ENABLE_AUTH } from '../lib/auth';
+import {auth, ENABLE_AUTH} from '../lib/auth';
 
 const HANDLERS = {
   INITIALIZE: 'INITIALIZE',
   SIGN_IN: 'SIGN_IN',
-  SIGN_OUT: 'SIGN_OUT'
+  SIGN_OUT: 'SIGN_OUT',
 };
 
 const initialState = {
   isAuthenticated: false,
   isLoading: true,
-  user: null
+  user: null,
 };
 
 const handlers = {
@@ -22,16 +22,16 @@ const handlers = {
       ...state,
       ...(
         // if payload (user) is provided, then is authenticated
-        user
-          ? ({
+        user ?
+          ({
             isAuthenticated: true,
             isLoading: false,
-            user
+            user,
+          }) :
+          ({
+            isLoading: false,
           })
-          : ({
-            isLoading: false
-          })
-      )
+      ),
     };
   },
   [HANDLERS.SIGN_IN]: (state, action) => {
@@ -40,16 +40,16 @@ const handlers = {
     return {
       ...state,
       isAuthenticated: true,
-      user
+      user,
     };
   },
   [HANDLERS.SIGN_OUT]: (state) => {
     return {
       ...state,
       isAuthenticated: false,
-      user: null
+      user: null,
     };
-  }
+  },
 };
 
 const reducer = (state, action) => (
@@ -58,10 +58,10 @@ const reducer = (state, action) => (
 
 // The role of this context is to propagate authentication state through the App tree.
 
-export const AuthContext = createContext({ undefined });
+export const AuthContext = createContext({undefined});
 
 export const AuthProvider = (props) => {
-  const { children } = props;
+  const {children} = props;
   const [state, dispatch] = useReducer(reducer, initialState);
   const initialized = useRef(false);
 
@@ -82,7 +82,7 @@ export const AuthProvider = (props) => {
 
       dispatch({
         type: HANDLERS.INITIALIZE,
-        payload: user
+        payload: user,
       });
       return;
     }
@@ -94,7 +94,7 @@ export const AuthProvider = (props) => {
 
       dispatch({
         type: HANDLERS.INITIALIZE,
-        payload: user
+        payload: user,
       });
       return;
     }
@@ -109,17 +109,17 @@ export const AuthProvider = (props) => {
 
         dispatch({
           type: HANDLERS.INITIALIZE,
-          payload: user
+          payload: user,
         });
       } else {
         dispatch({
-          type: HANDLERS.INITIALIZE
+          type: HANDLERS.INITIALIZE,
         });
       }
     } catch (err) {
       console.error(err);
       dispatch({
-        type: HANDLERS.INITIALIZE
+        type: HANDLERS.INITIALIZE,
       });
     }
   };
@@ -131,13 +131,13 @@ export const AuthProvider = (props) => {
   const signIn = (user) => {
     dispatch({
       type: HANDLERS.SIGN_IN,
-      payload: user
+      payload: user,
     });
   };
 
   const signOut = () => {
     dispatch({
-      type: HANDLERS.SIGN_OUT
+      type: HANDLERS.SIGN_OUT,
     });
   };
 
@@ -146,7 +146,7 @@ export const AuthProvider = (props) => {
       value={{
         ...state,
         signIn,
-        signOut
+        signOut,
       }}
     >
       {children}
@@ -155,7 +155,7 @@ export const AuthProvider = (props) => {
 };
 
 AuthProvider.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export const AuthConsumer = AuthContext.Consumer;
