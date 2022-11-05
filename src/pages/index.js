@@ -10,7 +10,7 @@ import { Salaries } from '../components/dashboard/total-profit';
 import { TrafficByDevice } from '../components/dashboard/traffic-by-device';
 import { DashboardLayout } from '../components/dashboard-layout';
 
-const Page = ({data}) => (
+const Page = ({ data }) => (
   <>
     <Head>
       <title>
@@ -36,7 +36,7 @@ const Page = ({data}) => (
             xl={3}
             xs={12}
           >
-            <Departments data={data.departments}/>
+            <Departments data={data.departments} />
           </Grid>
           <Grid
             item
@@ -45,7 +45,7 @@ const Page = ({data}) => (
             sm={6}
             xs={12}
           >
-            <Employees  data={data.employees}/>
+            <Employees data={data.employees} />
           </Grid>
           <Grid
             item
@@ -54,7 +54,7 @@ const Page = ({data}) => (
             sm={6}
             xs={12}
           >
-            <Titles  data={data.titles}/>
+            <Titles data={data.titles} />
           </Grid>
           <Grid
             item
@@ -63,7 +63,7 @@ const Page = ({data}) => (
             sm={6}
             xs={12}
           >
-            <Salaries sx={{ height: '100%' }}  data={data.salaries}/>
+            <Salaries sx={{ height: '100%' }} data={data.salaries} />
           </Grid>
           <Grid
             item
@@ -81,7 +81,7 @@ const Page = ({data}) => (
             xl={3}
             xs={12}
           >
-            <TrafficByDevice sx={{ height: '100%' }} />
+            <TrafficByDevice sx={{ height: '100%' }} data={data.employeesByDepartment} />
           </Grid>
           <Grid
             item
@@ -114,6 +114,7 @@ Page.getLayout = (page) => (
 );
 
 export async function getServerSideProps() {
+  //Tables counting
   const data = {}
   const models = ['employees', 'departments', 'salaries', 'titles']
   for (const model of models) {
@@ -126,8 +127,19 @@ export async function getServerSideProps() {
       data[model]['count']['time'][db] = time
     }
   }
+
+  //Employees counting by Department
+  data['employeesByDepartment'] = {}
+  data['employeesByDepartment']['time'] = {}
+  for (const db of ['mongo', 'postgres']) {
+    const { response, time } = await (await fetch(`http://localhost:3000/api/${db}/employees/by/department`)).json()
+    data['employeesByDepartment']['response'] = response
+    data['employeesByDepartment']['time'][db] = time
+  }
+
+  console.log(data)
   return {
-    props: {data}
+    props: { data }
   };
 }
 

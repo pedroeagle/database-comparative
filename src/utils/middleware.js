@@ -6,6 +6,7 @@ const getTiming = async (req, res, next) => {
   await next();
   const end = new Date().getTime();
   const time = end - start;
+  console.log({[db]: time});
   res.status(200).json({response: res.response, time});
 };
 

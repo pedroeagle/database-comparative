@@ -1,4 +1,3 @@
-
 import middleware, {switchHandlers} from '../../../../utils/middleware';
 import {Employees as MongoEmployees}
   from '../../../../models/mongo/employee';
