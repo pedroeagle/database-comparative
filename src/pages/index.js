@@ -3,7 +3,7 @@ import { Box, Container, Grid } from '@mui/material';
 import { Departments } from '../components/dashboard/budget';
 import { LatestOrders } from '../components/dashboard/latest-orders';
 import { LatestProducts } from '../components/dashboard/latest-products';
-import { Sales } from '../components/dashboard/sales';
+import { EmployeesByYear } from '../components/dashboard/sales';
 import { Titles } from '../components/dashboard/tasks-progress';
 import { Employees } from '../components/dashboard/total-customers';
 import { Salaries } from '../components/dashboard/total-profit';
@@ -72,7 +72,7 @@ const Page = ({ data }) => (
             xl={9}
             xs={12}
           >
-            <Sales />
+            <EmployeesByYear data={data.employeesByYear}/>
           </Grid>
           <Grid
             item
@@ -137,7 +137,14 @@ export async function getServerSideProps() {
     data['employeesByDepartment']['time'][db] = time
   }
 
-  console.log(data)
+  //Employees by year
+  data['employeesByYear'] = {}
+  data['employeesByYear']['time'] = {}
+  for(const db of ['mongo', 'postgres']){
+    const {response, time} = await (await fetch(`http://localhost:3000/api/${db}/employees/by/year`)).json()
+    data['employeesByYear']['response'] = response
+    data['employeesByYear']['time'][db] = time
+  }
   return {
     props: { data }
   };

@@ -8,8 +8,6 @@ import { Comparative } from '../comparative';
 export const TrafficByDevice = ({ data: { response, time: { mongo, postgres } }, ...props }) => {
   const theme = useTheme();
   const departments = Object.keys(response).map(department => response[department])
-  const count = departments.reduce((prev, curr) => prev + curr, 0)
-  console.log(count)
   const data = {
     datasets: [
       {

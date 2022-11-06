@@ -1,11 +1,11 @@
-import {Bar} from 'react-chartjs-2';
-import {Box, Button, Card, CardContent, CardHeader, Divider, useTheme} from '@mui/material';
+import { Bar } from 'react-chartjs-2';
+import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import { Comparative } from '../comparative';
 
-export const Sales = (props) => {
+export const EmployeesByYear = ({ data: { response: { 2001: currentYear, 2000: lastYear }, time: { mongo, postgres } }, ...props }) => {
   const theme = useTheme();
-
   const data = {
     datasets: [
       {
@@ -14,8 +14,8 @@ export const Sales = (props) => {
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: [18, 5, 19, 27, 29, 19, 20],
-        label: 'This year',
+        data: Object.keys(currentYear).map(date => currentYear[date]),
+        label: '2001',
         maxBarThickness: 10,
       },
       {
@@ -24,19 +24,19 @@ export const Sales = (props) => {
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: [11, 20, 12, 29, 30, 25, 13],
-        label: 'Last year',
+        data: Object.keys(lastYear).map(date => lastYear[date]),
+        label: '2000',
         maxBarThickness: 10,
       },
     ],
-    labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug', '7 aug'],
+    labels: Object.keys(currentYear),
   };
 
   const options = {
     animation: false,
     cornerRadius: 20,
-    layout: {padding: 0},
-    legend: {display: false},
+    layout: { padding: 0 },
+    legend: { display: false },
     maintainAspectRatio: false,
     responsive: true,
     xAxes: [
@@ -82,48 +82,51 @@ export const Sales = (props) => {
   };
 
   return (
-    <Card {...props}>
-      <CardHeader
-        action={(
-          <Button
-            endIcon={<ArrowDropDownIcon fontSize="small" />}
-            size="small"
+    <Comparative
+      mongo={mongo}
+      postgres={postgres}
+      child={<Card {...props}>
+        <CardHeader
+          action={(
+            <Button
+              endIcon={<ArrowDropDownIcon fontSize="small" />}
+              size="small"
+            >
+              25-07 to 31-07
+            </Button>
+          )}
+          title="Hirings on July Last Week"
+        />
+        <Divider />
+        <CardContent>
+          <Box
+            sx={{
+              height: 400,
+              position: 'relative',
+            }}
           >
-            Last 7 days
-          </Button>
-        )}
-        title="Latest Sales"
-      />
-      <Divider />
-      <CardContent>
+            <Bar
+              data={data}
+              options={options}
+            />
+          </Box>
+        </CardContent>
+        <Divider />
         <Box
           sx={{
-            height: 400,
-            position: 'relative',
+            display: 'flex',
+            justifyContent: 'flex-end',
+            p: 2,
           }}
         >
-          <Bar
-            data={data}
-            options={options}
-          />
+          <Button
+            color="primary"
+            endIcon={<ArrowRightIcon fontSize="small" />}
+            size="small"
+          >
+            Overview
+          </Button>
         </Box>
-      </CardContent>
-      <Divider />
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          p: 2,
-        }}
-      >
-        <Button
-          color="primary"
-          endIcon={<ArrowRightIcon fontSize="small" />}
-          size="small"
-        >
-          Overview
-        </Button>
-      </Box>
-    </Card>
+      </Card>} />
   );
 };
