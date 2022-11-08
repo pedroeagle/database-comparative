@@ -1,11 +1,4 @@
 import middleware, {switchHandlers} from '../../../../utils/middleware';
-import {Departments as MongoDepartments}
-  from '../../../../models/mongo/department';
-import {DepartmentEmployee as MongoDepartmentEmployee}
-  from '../../../../models/mongo/dept_emp';
-import {DepartmentEmployee as PostgresDepartmentEmployee}
-  from '../../../../models/postgres/dept_emp';
-import {Departments as PostgresDepartments} from '../../../../models/postgres/department';
 import {Employees as MongoEmployees} from '../../../../models/mongo/employee';
 import {Employees as PostgresEmployees} from '../../../../models/postgres/employee';
 import {Titles} from '../../../../models/postgres/title';

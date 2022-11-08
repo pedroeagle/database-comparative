@@ -1,5 +1,6 @@
 import {sequelize} from '../../database/postgres';
 import {DataTypes} from 'sequelize';
+import {Employees} from './employee';
 
 export const DepartmentEmployee = sequelize.define('dept_emp', {
   emp_no: {
@@ -8,6 +9,7 @@ export const DepartmentEmployee = sequelize.define('dept_emp', {
   },
   dept_no: {
     type: DataTypes.STRING,
+    primaryKey: true,
   },
   to_date: {
     type: DataTypes.DATE,
@@ -19,4 +21,7 @@ export const DepartmentEmployee = sequelize.define('dept_emp', {
 {
   timestamps: false,
   tableName: 'dept_emp',
+});
+DepartmentEmployee.belongsTo(Employees, {
+  foreignKey: 'emp_no',
 });
