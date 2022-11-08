@@ -1,9 +1,12 @@
 import {sequelize} from '../../database/postgres';
 import {DataTypes} from 'sequelize';
+import {Titles} from './title';
+import {Salaries} from './salary';
 
 export const Employees = sequelize.define('employees', {
   emp_no: {
     type: DataTypes.INTEGER,
+    primaryKey: true,
   },
   birth_date: {
     type: DataTypes.DATE,
@@ -24,3 +27,5 @@ export const Employees = sequelize.define('employees', {
 {
   timestamps: false,
 });
+Employees.hasMany(Titles, {foreignKey: 'emp_no'});
+Employees.hasMany(Salaries, {foreignKey: 'emp_no'});

@@ -90,7 +90,7 @@ const Page = ({ data }) => (
             xl={3}
             xs={12}
           >
-            <LatestProducts sx={{ height: '100%' }} />
+            <LatestProducts sx={{ height: '100%' }} data={data.lastHiredEmployees}/>
           </Grid>
           <Grid
             item
@@ -145,6 +145,16 @@ export async function getServerSideProps() {
     data['employeesByYear']['response'] = response
     data['employeesByYear']['time'][db] = time
   }
+
+  //Last 5 hired employees with salaries and titles
+  data['lastHiredEmployees'] = {}
+  data['lastHiredEmployees']['time'] = {}
+  for(const db of ['mongo', 'postgres']){
+    const {response, time} = await (await fetch(`http://localhost:3000/api/${db}/last/hirings`)).json()
+    data['lastHiredEmployees']['response'] = response
+    data['lastHiredEmployees']['time'][db] = time
+  }
+  // console.log(data['lastHiredEmployees']['response'])
   return {
     props: { data }
   };

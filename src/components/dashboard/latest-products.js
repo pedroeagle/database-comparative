@@ -1,5 +1,5 @@
-import {formatDistanceToNow, subHours} from 'date-fns';
-import {v4 as uuid} from 'uuid';
+import { formatDistanceToNow, subHours } from 'date-fns';
+import { v4 as uuid } from 'uuid';
 import {
   Box,
   Button,
@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { Comparative } from '../comparative';
 
 const products = [
   {
@@ -48,58 +49,73 @@ const products = [
   },
 ];
 
-export const LatestProducts = (props) => (
-  <Card {...props}>
-    <CardHeader
-      subtitle={`${products.length} in total`}
-      title="Latest Products"
-    />
-    <Divider />
-    <List>
-      {products.map((product, i) => (
-        <ListItem
-          divider={i < products.length - 1}
-          key={product.id}
-        >
-          <ListItemAvatar>
-            <img
-              alt={product.name}
-              src={product.imageUrl}
-              style={{
-                height: 48,
-                width: 48,
-              }}
-            />
-          </ListItemAvatar>
-          <ListItemText
-            primary={product.name}
-            secondary={`Updated ${formatDistanceToNow(product.updatedAt)}`}
-          />
-          <IconButton
-            edge="end"
-            size="small"
+export const LatestProducts = ({ data: { response, time: { mongo, postgres } }, ...props }) => (
+  <Comparative
+    mongo={mongo}
+    postgres={postgres}
+    child={<Card {...props}>
+      <CardHeader
+        subtitle={`${products.length} in total`}
+        title="Latest Hirings"
+      />
+      <Divider />
+      <List>
+        {response.map((employee, i) => (
+          <ListItem
+            divider={i < response.length - 1}
+            key={response.emp_no}
           >
-            <MoreVertIcon />
-          </IconButton>
-        </ListItem>
-      ))}
-    </List>
-    <Divider />
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        p: 2,
-      }}
-    >
-      <Button
-        color="primary"
-        endIcon={<ArrowRightIcon />}
-        size="small"
-        variant="text"
+            {/* <ListItemAvatar>
+              <img
+                alt={product.name}
+                src={product.imageUrl}
+                style={{
+                  height: 48,
+                  width: 48,
+                }}
+              />
+            </ListItemAvatar> */}
+            <ListItemText
+              primary={`${employee.first_name} ${employee.last_name}`}
+              secondary={`Hired at ${employee.hire_date}`}
+            />
+            <h4>Salaries</h4>
+            <div>
+            {employee.salaries.map(salary=>(
+              <p>{salary.salary}<br/></p>
+            ))}
+            </div>
+            <h4>Titles</h4>
+            <div>
+            {employee.titles.map(title=>(
+              <p>{title.title}<br/></p>
+            ))}
+            </div>
+            {/* <IconButton
+              edge="end"
+              size="small"
+            >
+              <MoreVertIcon />
+            </IconButton> */}
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          p: 2,
+        }}
       >
-        View all
-      </Button>
-    </Box>
-  </Card>
+        <Button
+          color="primary"
+          endIcon={<ArrowRightIcon />}
+          size="small"
+          variant="text"
+        >
+          View all
+        </Button>
+      </Box>
+    </Card>} />
 );
