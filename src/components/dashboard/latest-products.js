@@ -15,6 +15,7 @@ import {
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Comparative } from '../comparative';
+import { styled } from '@mui/material/styles';
 
 const products = [
   {
@@ -49,6 +50,24 @@ const products = [
   },
 ];
 
+const TitlesAndSalaries = styled('div')(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  width: '60%'
+}));
+
+const Titles = styled('div')(({ theme }) => ({
+  display: 'block',
+  width: '48%',
+  justifyItems: 'center',
+}));
+
+const Salaries = styled('div')(({ theme }) => ({
+  display: 'block',
+  width: '48%',
+  justifyItems: 'center',
+}));
+
 export const LatestProducts = ({ data: { response, time: { mongo, postgres } }, ...props }) => (
   <Comparative
     mongo={mongo}
@@ -79,18 +98,26 @@ export const LatestProducts = ({ data: { response, time: { mongo, postgres } }, 
               primary={`${employee.first_name} ${employee.last_name}`}
               secondary={`Hired at ${employee.hire_date}`}
             />
-            <h4>Salaries</h4>
-            <div>
-            {employee.salaries.map(salary=>(
-              <p>{salary.salary}<br/></p>
-            ))}
-            </div>
-            <h4>Titles</h4>
-            <div>
-            {employee.titles.map(title=>(
-              <p>{title.title}<br/></p>
-            ))}
-            </div>
+            <TitlesAndSalaries>
+              <Salaries>
+                <h4>Salaries</h4>
+                {employee.salaries.map(salary => (
+                  // <p>${salary.salary}</p>
+                  <ListItemText
+                  sx={{display: 'flex', justifyContent: 'space-between'}}
+                  primary={`$${salary.salary}`}
+                  secondary={salary.from_date}
+                />
+                ))}
+                
+              </Salaries>
+              <Titles>
+                <h4>Titles</h4>
+                {employee.titles.map(title => (
+                  <p>{title.title}<br /></p>
+                ))}
+              </Titles>
+            </TitlesAndSalaries>
             {/* <IconButton
               edge="end"
               size="small"
