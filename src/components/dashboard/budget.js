@@ -27,7 +27,7 @@ export const Departments = ({ data: { count: { response, time: { mongo, postgres
             </Typography>
             <Typography
               color="textPrimary"
-              variant="h4"
+              variant="h5"
             >
               {response}
             </Typography>

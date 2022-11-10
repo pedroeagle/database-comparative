@@ -53,7 +53,8 @@ const products = [
 const TitlesAndSalaries = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
-  width: '60%'
+  flexDirection: 'column',
+  width: '100%'
 }));
 
 const Titles = styled('div')(({ theme }) => ({
@@ -64,7 +65,7 @@ const Titles = styled('div')(({ theme }) => ({
 
 const Salaries = styled('div')(({ theme }) => ({
   display: 'block',
-  width: '48%',
+  width: '30%',
   justifyItems: 'center',
 }));
 
@@ -94,29 +95,14 @@ export const LatestProducts = ({ data: { response, time: { mongo, postgres } }, 
                 }}
               />
             </ListItemAvatar> */}
-            <ListItemText
-              primary={`${employee.first_name} ${employee.last_name}`}
-              secondary={`Hired at ${employee.hire_date}`}
-            />
             <TitlesAndSalaries>
-              <Salaries>
-                <h4>Salaries</h4>
-                {employee.salaries.map(salary => (
-                  // <p>${salary.salary}</p>
-                  <ListItemText
-                  sx={{display: 'flex', justifyContent: 'space-between'}}
-                  primary={`$${salary.salary}`}
-                  secondary={salary.from_date}
-                />
-                ))}
-                
-              </Salaries>
-              <Titles>
-                <h4>Titles</h4>
-                {employee.titles.map(title => (
-                  <p>{title.title}<br /></p>
-                ))}
-              </Titles>
+              <ListItemText
+                primary={<h4>{`${employee.first_name} ${employee.last_name}`}</h4>}
+                sx={{justifyContent: 'space-between', display: 'flex'}}
+                secondary={`Hired at ${employee.hire_date}`}
+              />
+                <p>Salary Updates: {employee.salaries.length - 1}</p>
+                <p>Titles: {employee.titles.map(({title})=>title).join(', ')}</p>
             </TitlesAndSalaries>
             {/* <IconButton
               edge="end"

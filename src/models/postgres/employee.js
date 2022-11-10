@@ -2,6 +2,7 @@ import {sequelize} from '../../database/postgres';
 import {DataTypes} from 'sequelize';
 import {Titles} from './title';
 import {Salaries} from './salary';
+import {DepartmentEmployee} from './dept_emp';
 
 export const Employees = sequelize.define('employees', {
   emp_no: {
@@ -29,3 +30,7 @@ export const Employees = sequelize.define('employees', {
 });
 Employees.hasMany(Titles, {foreignKey: 'emp_no'});
 Employees.hasMany(Salaries, {foreignKey: 'emp_no'});
+Employees.hasMany(DepartmentEmployee, {foreignKey: 'emp_no'});
+// DepartmentEmployee.belongsTo(Employees, {
+//   foreignKey: 'emp_no',
+// });

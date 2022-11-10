@@ -10,22 +10,22 @@ import {DepartmentManager as PostgresDerpartmentManager}
 import {DepartmentEmployee as MongoDepartmentEmployee} from '../../../../models/mongo/dept_emp';
 import {DepartmentEmployee as PostgresDepartmentEmployee} from '../../../../models/postgres/dept_emp';
 import {Departments as PostgresDepartments} from '../../../../models/postgres/department';
-import {Departments as MongoDepartments} from '../../../../models/mongo/department';
+import department, {Departments as MongoDepartments} from '../../../../models/mongo/department';
 
 
 export default middleware(async (req, res) => {
   await switchHandlers(req, res, mongo, postgres);
 });
 const mongo = async (req, res) => {
-  const promotions = await MongoDepartmentManager.find({},
-      [],
+  const promotions = (await MongoDepartmentManager.find({},
+      ['dept_no', 'emp_no', 'to_date', 'from_date'],
       {
         skip: 0,
-        limit: 5,
+        limit: 6,
         sort: {
           from_date: -1,
         },
-      });
+      })).map((promotion)=>promotion.toObject());
   const response = [];
   for (const promotion of promotions) {
     const employee = await MongoEmployees.findOne({emp_no: promotion.emp_no},
@@ -35,25 +35,27 @@ const mongo = async (req, res) => {
           'last_name',
           'gender',
           'hire_date']);
-    const departments =
-    Promise.all((await MongoDepartmentEmployee.find({emp_no: promotion.emp_no}))
-        .map(async ({dept_no: dept})=>
-          await MongoDepartments.findOne({dept_no: dept})));
-    response.push({promotion, employee, departments});
+    const department = (await MongoDepartments.findOne({dept_no: promotion.dept_no})).toObject();
+    const deptEmps =
+        await (await MongoDepartmentEmployee.find({emp_no: employee.emp_no})).map((deptEmp)=>deptEmp.toObject());
+
+    response.push({...promotion, department, employee, dept_emps: deptEmps});
   }
   res.response = response;
 };
 const postgres = async (req, res) => {
-  const response = {};
   const employees = await PostgresDerpartmentManager.findAll({
     order: [['from_date', 'DESC']],
-    limit: 5,
+    limit: 6,
     include: [
       {
         model: PostgresEmployees,
+        include: [
+          {model: PostgresDepartmentEmployee},
+        ],
       },
       {
-        model: PostgresDepartmentEmployee,
+        model: PostgresDepartments,
       },
     ]});
   res.response = employees;

@@ -197,6 +197,8 @@ export const theme = createTheme({
       secondary: '#65748B',
       disabled: 'rgba(55, 65, 81, 0.48)',
     },
+    pink: {main: 'rgb(183, 51, 119)'},
+    blue: {main: 'rgb(45, 169, 217)'},
   },
   shape: {
     borderRadius: 8,

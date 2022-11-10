@@ -2,6 +2,7 @@ import {sequelize} from '../../database/postgres';
 import {DataTypes} from 'sequelize';
 import {Employees} from '../postgres/employee';
 import {DepartmentEmployee} from './dept_emp';
+import {Departments} from './department';
 
 export const DepartmentManager = sequelize.define('dept_manager', {
   dept_no: {
@@ -25,3 +26,4 @@ export const DepartmentManager = sequelize.define('dept_manager', {
 });
 
 DepartmentManager.belongsTo(Employees, {foreignKey: 'emp_no'});
+DepartmentManager.belongsTo(Departments, {foreignKey: 'dept_no'});

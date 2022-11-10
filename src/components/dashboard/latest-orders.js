@@ -1,5 +1,5 @@
-import {format} from 'date-fns';
-import {v4 as uuid} from 'uuid';
+import { format } from 'date-fns';
+import { v4 as uuid } from 'uuid';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Box,
@@ -15,7 +15,8 @@ import {
   Tooltip,
 } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import {SeverityPill} from '../severity-pill';
+import { SeverityPill } from '../severity-pill';
+import { Comparative } from '../comparative';
 
 const orders = [
   {
@@ -80,83 +81,80 @@ const orders = [
   },
 ];
 
-export const LatestOrders = (props) => (
-  <Card {...props}>
-    <CardHeader title="Latest Orders" />
-    <PerfectScrollbar>
-      <Box sx={{minWidth: 800}}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                Order Ref
-              </TableCell>
-              <TableCell>
-                Customer
-              </TableCell>
-              <TableCell sortDirection="desc">
-                <Tooltip
-                  enterDelay={300}
-                  title="Sort"
-                >
-                  <TableSortLabel
-                    active
-                    direction="desc"
-                  >
-                    Date
-                  </TableSortLabel>
-                </Tooltip>
-              </TableCell>
-              <TableCell>
-                Status
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {orders.map((order) => (
-              <TableRow
-                hover
-                key={order.id}
-              >
+export const LatestOrders = ({ data: { response, time: { mongo, postgres } }, ...props }) => (
+  <Comparative
+    mongo={mongo}
+    postgres={postgres}
+    child={<Card {...props}>
+      <CardHeader title="Latest Promotions to Manager" />
+      <PerfectScrollbar>
+        <Box sx={{ minWidth: 600 }}>
+          <Table>
+            <TableHead>
+              <TableRow>
                 <TableCell>
-                  {order.ref}
+                  Employee
                 </TableCell>
                 <TableCell>
-                  {order.customer.name}
+                  Department
                 </TableCell>
                 <TableCell>
-                  {format(order.createdAt, 'dd/MM/yyyy')}
+                  Promotion
                 </TableCell>
                 <TableCell>
-                  <SeverityPill
-                    color={(order.status === 'delivered' && 'success') ||
-                    (order.status === 'refunded' && 'error') ||
-                    'warning'}
-                  >
-                    {order.status}
-                  </SeverityPill>
+                  Since
+                </TableCell>
+                <TableCell>
+                  Sex
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Box>
-    </PerfectScrollbar>
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        p: 2,
-      }}
-    >
-      <Button
-        color="primary"
-        endIcon={<ArrowRightIcon fontSize="small" />}
-        size="small"
-        variant="text"
+            </TableHead>
+            <TableBody>
+              {response.map((order) => (
+                <TableRow
+                  hover
+                  key={order.id}
+                >
+                  <TableCell>
+                    {order.employee.first_name} {order.employee.last_name}
+                  </TableCell>
+                  <TableCell>
+                    {order.department.dept_name}
+                  </TableCell>
+                  <TableCell>
+                    {order.from_date}
+                  </TableCell>
+                  <TableCell>
+                    {order.employee.dept_emps.find(dept_emp => dept_emp.dept_no === order.department.dept_no).from_date}
+                  </TableCell>
+                  <TableCell>
+                    <SeverityPill
+                      color={order.employee.gender==='F'?'pink':'blue'}
+                    >
+                      {order.employee.gender==='F'?'Female':'Male  '}
+                    </SeverityPill>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Box>
+      </PerfectScrollbar>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          p: 2,
+        }}
       >
-        View all
-      </Button>
-    </Box>
-  </Card>
+        <Button
+          color="primary"
+          endIcon={<ArrowRightIcon fontSize="small" />}
+          size="small"
+          variant="text"
+        >
+          View all
+        </Button>
+      </Box>
+    </Card>} />
 );
