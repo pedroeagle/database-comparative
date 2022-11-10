@@ -3,10 +3,25 @@ import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme } from '@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { Comparative } from '../comparative';
+import { useState } from 'react';
 
-export const EmployeesByYear = ({ data: { response: { 2001: currentYear, 2000: lastYear }, time: { mongo, postgres } }, ...props }) => {
+export const EmployeesByYear = (props) => {
+  const [time, setTime] = useState({ mongo: 0, postgres: 0 })
+  const [loading, setLoading] = useState(true)
+  const [response, setResponse] = useState(-1)
+
+  const fetchData = async () => {
+    setLoading(true)
+    for (const db of ['mongo', 'postgres']) {
+      const { response, time: t } = await (await fetch(`http://localhost:3000/api/${db}/employees/by/year`)).json()
+      if (db === 'postgres') setResponse(response)
+      console.log(response)
+      setTime((time) => ({ ...time, [db]: t }))
+    }
+    setLoading(false)
+  }
   const theme = useTheme();
-  const data = {
+  const data = loading?{}:{
     datasets: [
       {
         backgroundColor: '#3F51B5',
@@ -14,7 +29,7 @@ export const EmployeesByYear = ({ data: { response: { 2001: currentYear, 2000: l
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: Object.keys(currentYear).map(date => currentYear[date]),
+        data: Object.keys(response[2001]).map(date => response[2001][date]),
         label: '2001',
         maxBarThickness: 10,
       },
@@ -24,12 +39,12 @@ export const EmployeesByYear = ({ data: { response: { 2001: currentYear, 2000: l
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: Object.keys(lastYear).map(date => lastYear[date]),
+        data: Object.keys(response[2000]).map(date => response[2000][date]),
         label: '2000',
         maxBarThickness: 10,
       },
     ],
-    labels: Object.keys(currentYear),
+    labels: Object.keys(response[2001]),
   };
 
   const options = {
@@ -82,9 +97,9 @@ export const EmployeesByYear = ({ data: { response: { 2001: currentYear, 2000: l
   };
 
   return (
-    <Comparative
-      mongo={mongo}
-      postgres={postgres}
+    <Comparative loading={loading}
+      time={time}
+      fetch={fetchData}
       child={<Card {...props}>
         <CardHeader
           action={(

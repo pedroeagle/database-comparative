@@ -17,6 +17,7 @@ import {
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { SeverityPill } from '../severity-pill';
 import { Comparative } from '../comparative';
+import { useState } from 'react';
 
 const orders = [
   {
@@ -81,80 +82,96 @@ const orders = [
   },
 ];
 
-export const LatestOrders = ({ data: { response, time: { mongo, postgres } }, ...props }) => (
-  <Comparative
-    mongo={mongo}
-    postgres={postgres}
-    child={<Card {...props}>
-      <CardHeader title="Latest Promotions to Manager" />
-      <PerfectScrollbar>
-        <Box sx={{ minWidth: 600 }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  Employee
-                </TableCell>
-                <TableCell>
-                  Department
-                </TableCell>
-                <TableCell>
-                  Promotion
-                </TableCell>
-                <TableCell>
-                  Since
-                </TableCell>
-                <TableCell>
-                  Sex
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {response.map((order) => (
-                <TableRow
-                  hover
-                  key={order.id}
-                >
+export const LatestPromotedEmployees = (props) => {
+  const [time, setTime] = useState({ mongo: 0, postgres: 0 })
+  const [loading, setLoading] = useState(true)
+  const [response, setResponse] = useState([])
+
+  const fetchData = async () => {
+    setLoading(true)
+    for (const db of ['mongo', 'postgres']) {
+      const { response, time: t } = await (await fetch(`http://localhost:3000/api/${db}/last/promotions`)).json()
+      if (db === 'postgres') setResponse(response)
+      setTime((time) => ({ ...time, [db]: t }))
+    }
+    setLoading(false)
+  }
+  console.log(response)
+  return (
+    <Comparative loading={loading}
+      time={time}
+      fetch={fetchData}
+      child={<Card {...props}>
+        <CardHeader title="Latest Promotions to Manager" />
+        <PerfectScrollbar>
+          <Box sx={{ minWidth: 600 }}>
+            <Table>
+              <TableHead>
+                <TableRow>
                   <TableCell>
-                    {order.employee.first_name} {order.employee.last_name}
+                    Employee
                   </TableCell>
                   <TableCell>
-                    {order.department.dept_name}
+                    Department
                   </TableCell>
                   <TableCell>
-                    {order.from_date}
+                    Promotion
                   </TableCell>
                   <TableCell>
-                    {order.employee.dept_emps.find(dept_emp => dept_emp.dept_no === order.department.dept_no).from_date}
+                    Since
                   </TableCell>
                   <TableCell>
-                    <SeverityPill
-                      color={order.employee.gender==='F'?'pink':'blue'}
-                    >
-                      {order.employee.gender==='F'?'Female':'Male  '}
-                    </SeverityPill>
+                    Sex
                   </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Box>
-      </PerfectScrollbar>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          p: 2,
-        }}
-      >
-        <Button
-          color="primary"
-          endIcon={<ArrowRightIcon fontSize="small" />}
-          size="small"
-          variant="text"
+              </TableHead>
+              <TableBody>
+                {response.map((order) => (
+                  <TableRow
+                    hover
+                    key={order.id}
+                  >
+                    <TableCell>
+                      {order.employee.first_name} {order.employee.last_name}
+                    </TableCell>
+                    <TableCell>
+                      {order.department.dept_name}
+                    </TableCell>
+                    <TableCell>
+                      {order.from_date}
+                    </TableCell>
+                    <TableCell>
+                      {order.employee?.dept_emps.find(dept_emp => dept_emp.dept_no === order.department.dept_no).from_date}
+                    </TableCell>
+                    <TableCell>
+                      <SeverityPill
+                        color={order.employee.gender === 'F' ? 'pink' : 'blue'}
+                      >
+                        {order.employee.gender === 'F' ? 'Female' : 'Male  '}
+                      </SeverityPill>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Box>
+        </PerfectScrollbar>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            p: 2,
+          }}
         >
-          View all
-        </Button>
-      </Box>
-    </Card>} />
-);
+          <Button
+            color="primary"
+            endIcon={<ArrowRightIcon fontSize="small" />}
+            size="small"
+            variant="text"
+          >
+            View all
+          </Button>
+        </Box>
+      </Card>} />
+  )
+};

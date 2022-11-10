@@ -1,11 +1,26 @@
 import { Avatar, Box, Card, CardContent, Grid, LinearProgress, Typography } from '@mui/material';
 import InsertChartIcon from '@mui/icons-material/InsertChartOutlined';
 import { Comparative } from '../comparative';
+import { useState } from 'react';
 
-export const Titles = ({ data: { count: { response, time: { mongo, postgres } } }, ...props }) => (
-  <Comparative
-    mongo={mongo}
-    postgres={postgres}
+export const Titles = (props) => {
+  const [time, setTime] = useState({ mongo: 0, postgres: 0 })
+  const [loading, setLoading] = useState(true)
+  const [response, setResponse] = useState(-1)
+
+  const fetchData = async () => {
+    setLoading(true)
+    for (const db of ['mongo', 'postgres']) {
+      const { response, time: t } = await (await fetch(`http://localhost:3000/api/${db}/titles/count`)).json()
+      if (db === 'postgres') setResponse(response)
+      setTime((time) => ({ ...time, [db]: t }))
+    }
+    setLoading(false)
+  }
+  return (
+    <Comparative loading={loading}
+      time={time}
+      fetch={fetchData}
     child={<Card
       sx={{ height: '100%' }}
       {...props}
@@ -51,4 +66,4 @@ export const Titles = ({ data: { count: { response, time: { mongo, postgres } } 
       </Box> */}
       </CardContent>
     </Card>} />
-);
+)};

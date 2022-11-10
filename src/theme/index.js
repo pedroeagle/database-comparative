@@ -199,6 +199,7 @@ export const theme = createTheme({
     },
     pink: {main: 'rgb(183, 51, 119)'},
     blue: {main: 'rgb(45, 169, 217)'},
+    black: {main: '#000000'},
   },
   shape: {
     borderRadius: 8,

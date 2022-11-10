@@ -1,11 +1,26 @@
 import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { Comparative } from '../comparative';
+import { useState } from 'react';
 
-export const Salaries = ({ data: { count: { response, time: { mongo, postgres } } }, ...props }) => (
-  <Comparative
-    mongo={mongo}
-    postgres={postgres}
+export const Salaries = (props) => {
+  const [time, setTime] = useState({ mongo: 0, postgres: 0 })
+  const [loading, setLoading] = useState(true)
+  const [response, setResponse] = useState(-1)
+
+  const fetchData = async () => {
+    setLoading(true)
+    for (const db of ['mongo', 'postgres']) {
+      const { response, time: t } = await (await fetch(`http://localhost:3000/api/${db}/salaries/count`)).json()
+      if (db === 'postgres') setResponse(response)
+      setTime((time) => ({ ...time, [db]: t }))
+    }
+    setLoading(false)
+  }
+  return (
+    <Comparative loading={loading}
+      time={time}
+      fetch={fetchData}
     child={<Card {...props}>
       <CardContent>
         <Grid
@@ -42,4 +57,4 @@ export const Salaries = ({ data: { count: { response, time: { mongo, postgres } 
         </Grid>
       </CardContent>
     </Card>} />
-);
+)};

@@ -1,14 +1,31 @@
 import { Bar } from "react-chartjs-2"
-import { CardContent, useTheme } from '@mui/material';
-import {styled} from '@mui/material/styles';
+import { CardContent, CircularProgress, useTheme } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { useEffect } from "react";
+import RefreshIcon from '@mui/icons-material/Refresh'
+import { Box } from "@mui/system";
 
-const ComparativeLayout = styled('div')(({theme, ownerState}) => {
+const ComparativeLayout = styled('div')(({ theme, ownerState }) => {
   return {
-    height: '80px'
+    height: '80px',
+    display: 'flex',
+    width: '90%',
+    alignItems: 'center'
+  };
+});
+const Loading = styled('div')(({ theme, ownerState }) => {
+  return {
+    display: 'flex',
+    minWidth: '10%',
+    justifyContent: 'center',
+    alignItems: 'center'
   };
 });
 
-export const Comparative = ({ mongo, postgres, child }) => {
+export const Comparative = ({ time: { mongo, postgres }, fetch, child, loading }) => {
+  useEffect(() => {
+    fetch() 
+  }, [])
   const theme = useTheme();
   // const options = {
   //   labels: ['Mongo', 'Postgres'],
@@ -112,6 +129,11 @@ export const Comparative = ({ mongo, postgres, child }) => {
             data={data}
             options={options}
           />
+          <Loading>
+            <Box sx={{ display: 'flex', justifyItems: 'center'}}>
+              {loading ? <CircularProgress color="black" size={15} thickness={5}/> : <RefreshIcon onClick={fetch} style={{ cursor: 'pointer' }} />}
+            </Box>
+          </Loading>
         </ComparativeLayout>
       </div>
     </>

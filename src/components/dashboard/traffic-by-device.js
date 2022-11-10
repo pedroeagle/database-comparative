@@ -4,15 +4,29 @@ import LaptopMacIcon from '@mui/icons-material/LaptopMac';
 import PhoneIcon from '@mui/icons-material/Phone';
 import TabletIcon from '@mui/icons-material/Tablet';
 import { Comparative } from '../comparative';
+import { useState } from 'react';
 
-export const TrafficByDevice = ({ data: { response, time: { mongo, postgres } }, ...props }) => {
+export const EmployeesByDepartment = (props) => {
+  const [time, setTime] = useState({ mongo: 0, postgres: 0 })
+  const [loading, setLoading] = useState(true)
+  const [response, setResponse] = useState(-1)
+
+  const fetchData = async () => {
+    setLoading(true)
+    for (const db of ['mongo', 'postgres']) {
+      const { response, time: t } = await (await fetch(`http://localhost:3000/api/${db}/employees/by/department`)).json()
+      if (db === 'postgres') setResponse(response)
+      setTime((time) => ({ ...time, [db]: t }))
+    }
+    setLoading(false)
+  }
   const theme = useTheme();
   const departments = Object.keys(response).map(department => response[department])
   const data = {
     datasets: [
       {
         data: departments,
-        backgroundColor: ['#F44336', '#E64A19', '#C2185B', '#7B1FA2', '#689F38', '#512DA8', '#303F9F', '#1976D2', '#388E3C', ],
+        backgroundColor: ['#F44336', '#E64A19', '#C2185B', '#7B1FA2', '#689F38', '#512DA8', '#303F9F', '#1976D2', '#388E3C',],
         borderWidth: 8,
         borderColor: '#FFFFFF',
         hoverBorderColor: '#FFFFFF',
@@ -44,7 +58,9 @@ export const TrafficByDevice = ({ data: { response, time: { mongo, postgres } },
   };
 
   return (
-    <Comparative mongo={mongo} postgres={postgres}
+    <Comparative loading={loading}
+      time={time}
+      fetch={fetchData}
       child={<Card {...props}>
         <CardHeader title="Employees by Department" />
         <Divider />

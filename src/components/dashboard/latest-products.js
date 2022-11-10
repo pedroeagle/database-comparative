@@ -16,6 +16,7 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Comparative } from '../comparative';
 import { styled } from '@mui/material/styles';
+import { useState } from 'react';
 
 const products = [
   {
@@ -69,23 +70,37 @@ const Salaries = styled('div')(({ theme }) => ({
   justifyItems: 'center',
 }));
 
-export const LatestProducts = ({ data: { response, time: { mongo, postgres } }, ...props }) => (
-  <Comparative
-    mongo={mongo}
-    postgres={postgres}
-    child={<Card {...props}>
-      <CardHeader
-        subtitle={`${products.length} in total`}
-        title="Latest Hirings"
-      />
-      <Divider />
-      <List>
-        {response.map((employee, i) => (
-          <ListItem
-            divider={i < response.length - 1}
-            key={response.emp_no}
-          >
-            {/* <ListItemAvatar>
+export const LatestHirings = (props) => {
+  const [time, setTime] = useState({ mongo: 0, postgres: 0 })
+  const [loading, setLoading] = useState(true)
+  const [response, setResponse] = useState([])
+
+  const fetchData = async () => {
+    setLoading(true)
+    for (const db of ['mongo', 'postgres']) {
+      const { response, time: t } = await (await fetch(`http://localhost:3000/api/${db}/last/hirings`)).json()
+      if (db === 'postgres') setResponse(response)
+      setTime((time) => ({ ...time, [db]: t }))
+    }
+    setLoading(false)
+  }
+  return (
+    <Comparative loading={loading}
+      time={time}
+      fetch={fetchData}
+      child={<Card {...props}>
+        <CardHeader
+          subtitle={`${products.length} in total`}
+          title="Latest Hirings"
+        />
+        <Divider />
+        <List>
+          {response.map((employee, i) => (
+            <ListItem
+              divider={i < response.length - 1}
+              key={response.emp_no}
+            >
+              {/* <ListItemAvatar>
               <img
                 alt={product.name}
                 src={product.imageUrl}
@@ -95,40 +110,41 @@ export const LatestProducts = ({ data: { response, time: { mongo, postgres } }, 
                 }}
               />
             </ListItemAvatar> */}
-            <TitlesAndSalaries>
-              <ListItemText
-                primary={<h4>{`${employee.first_name} ${employee.last_name}`}</h4>}
-                sx={{justifyContent: 'space-between', display: 'flex'}}
-                secondary={`Hired at ${employee.hire_date}`}
-              />
+              <TitlesAndSalaries>
+                <ListItemText
+                  primary={<h4>{`${employee.first_name} ${employee.last_name}`}</h4>}
+                  sx={{ justifyContent: 'space-between', display: 'flex' }}
+                  secondary={`Hired at ${employee.hire_date}`}
+                />
                 <p>Salary Updates: {employee.salaries.length - 1}</p>
-                <p>Titles: {employee.titles.map(({title})=>title).join(', ')}</p>
-            </TitlesAndSalaries>
-            {/* <IconButton
+                <p>Titles: {employee.titles.map(({ title }) => title).join(', ')}</p>
+              </TitlesAndSalaries>
+              {/* <IconButton
               edge="end"
               size="small"
             >
               <MoreVertIcon />
             </IconButton> */}
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          p: 2,
-        }}
-      >
-        <Button
-          color="primary"
-          endIcon={<ArrowRightIcon />}
-          size="small"
-          variant="text"
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            p: 2,
+          }}
         >
-          View all
-        </Button>
-      </Box>
-    </Card>} />
-);
+          <Button
+            color="primary"
+            endIcon={<ArrowRightIcon />}
+            size="small"
+            variant="text"
+          >
+            View all
+          </Button>
+        </Box>
+      </Card>} />
+  )
+};
