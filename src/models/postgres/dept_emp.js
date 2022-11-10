@@ -23,3 +23,4 @@ export const DepartmentEmployee = sequelize.define('dept_emp', {
   tableName: 'dept_emp',
 });
 DepartmentEmployee.belongsTo(Departments, {foreignKey: 'dept_no'});
+Departments.hasMany(DepartmentEmployee, {foreignKey: 'dept_no'});
