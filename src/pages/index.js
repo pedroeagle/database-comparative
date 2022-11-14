@@ -36,7 +36,7 @@ const Page = ({ data }) => (
             xl={3}
             xs={12}
           >
-            <Departments data={data.departments} />
+            <Departments />
           </Grid>
           <Grid
             item
@@ -45,7 +45,7 @@ const Page = ({ data }) => (
             sm={6}
             xs={12}
           >
-            <Employees data={data.employees} />
+            <Employees />
           </Grid>
           <Grid
             item
@@ -54,7 +54,7 @@ const Page = ({ data }) => (
             sm={6}
             xs={12}
           >
-            <Titles data={data.titles} />
+            <Titles />
           </Grid>
           <Grid
             item
@@ -63,7 +63,7 @@ const Page = ({ data }) => (
             sm={6}
             xs={12}
           >
-            <Salaries sx={{ height: '100%' }} data={data.salaries} />
+            <Salaries sx={{ height: '100%' }} />
           </Grid>
           <Grid
             item
@@ -72,7 +72,7 @@ const Page = ({ data }) => (
             xl={9}
             xs={12}
           >
-            <EmployeesByYear data={data.employeesByYear}/>
+            <EmployeesByYear />
           </Grid>
           <Grid
             item
@@ -81,7 +81,7 @@ const Page = ({ data }) => (
             xl={3}
             xs={12}
           >
-            <EmployeesByDepartment sx={{ height: '100%' }} data={data.employeesByDepartment} />
+            <EmployeesByDepartment sx={{ height: '100%' }} />
           </Grid>
           <Grid
             item
@@ -90,7 +90,7 @@ const Page = ({ data }) => (
             xl={3}
             xs={12}
           >
-            <LatestHirings sx={{ height: '100%' }} data={data.lastHiredEmployees}/>
+            <LatestHirings sx={{ height: '100%' }} />
           </Grid>
           <Grid
             item
@@ -99,7 +99,7 @@ const Page = ({ data }) => (
             xl={9}
             xs={12}
           >
-            <LatestPromotedEmployees data={data.lastPromotedEmployees}/>
+            <LatestPromotedEmployees />
           </Grid>
         </Grid>
       </Container>
@@ -112,60 +112,5 @@ Page.getLayout = (page) => (
     {page}
   </DashboardLayout>
 );
-
-export async function getServerSideProps() {
-  //Tables counting
-  const data = {}
-  // const models = ['employees', 'departments', 'salaries', 'titles']
-  // for (const model of models) {
-  //   data[model] = {}
-  //   data[model]['count'] = {}
-  //   data[model]['count']['time'] = {}
-  //   for (const db of ['mongo', 'postgres']) {
-  //     const { response, time } = await (await fetch(`http://localhost:3000/api/${db}/${model}/count`)).json()
-  //     data[model]['count']['response'] = response
-  //     data[model]['count']['time'][db] = time
-  //   }
-  // }
-
-  // //Employees counting by Department
-  // data['employeesByDepartment'] = {}
-  // data['employeesByDepartment']['time'] = {}
-  // for (const db of ['mongo', 'postgres']) {
-  //   const { response, time } = await (await fetch(`http://localhost:3000/api/${db}/employees/by/department`)).json()
-  //   data['employeesByDepartment']['response'] = response
-  //   data['employeesByDepartment']['time'][db] = time
-  // }
-
-  // //Employees by year
-  // data['employeesByYear'] = {}
-  // data['employeesByYear']['time'] = {}
-  // for(const db of ['mongo', 'postgres']){
-  //   const {response, time} = await (await fetch(`http://localhost:3000/api/${db}/employees/by/year`)).json()
-  //   data['employeesByYear']['response'] = response
-  //   data['employeesByYear']['time'][db] = time
-  // }
-
-  // //Last 5 hired employees with salaries and titles
-  // data['lastHiredEmployees'] = {}
-  // data['lastHiredEmployees']['time'] = {}
-  // for(const db of ['mongo', 'postgres']){
-  //   const {response, time} = await (await fetch(`http://localhost:3000/api/${db}/last/hirings`)).json()
-  //   data['lastHiredEmployees']['response'] = response
-  //   data['lastHiredEmployees']['time'][db] = time
-  // }
-  
-  // //Last 6 promotions to manager
-  // data['lastPromotedEmployees'] = {}
-  // data['lastPromotedEmployees']['time'] = {}
-  // for(const db of ['mongo', 'postgres']){
-  //   const {response, time} = await (await fetch(`http://localhost:3000/api/${db}/last/promotions`)).json()
-  //   data['lastPromotedEmployees']['response'] = response
-  //   data['lastPromotedEmployees']['time'][db] = time
-  // }
-  return {
-    props: { data }
-  };
-}
 
 export default Page;

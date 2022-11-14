@@ -24,7 +24,7 @@ const Loading = styled('div')(({ theme, ownerState }) => {
 
 export const Comparative = ({ time: { mongo, postgres }, fetch, child, loading }) => {
   useEffect(() => {
-    fetch() 
+    fetch()
   }, [])
   const theme = useTheme();
   // const options = {
@@ -50,7 +50,7 @@ export const Comparative = ({ time: { mongo, postgres }, fetch, child, loading }
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: [mongo],
+        data: [loading ? 0 : mongo],
         label: 'Mongo',
         maxBarThickness: 8,
       },
@@ -60,7 +60,7 @@ export const Comparative = ({ time: { mongo, postgres }, fetch, child, loading }
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: [postgres],
+        data: [loading ? 0 : postgres],
         label: 'Postgres',
         maxBarThickness: 8,
       },
@@ -130,8 +130,8 @@ export const Comparative = ({ time: { mongo, postgres }, fetch, child, loading }
             options={options}
           />
           <Loading>
-            <Box sx={{ display: 'flex', justifyItems: 'center'}}>
-              {loading ? <CircularProgress color="black" size={15} thickness={5}/> : <RefreshIcon onClick={fetch} style={{ cursor: 'pointer' }} />}
+            <Box sx={{ display: 'flex', justifyItems: 'center' }}>
+              {loading ? <CircularProgress color="black" size={15} thickness={5} /> : <RefreshIcon onClick={fetch} style={{ cursor: 'pointer' }} />}
             </Box>
           </Loading>
         </ComparativeLayout>

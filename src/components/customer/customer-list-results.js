@@ -1,12 +1,10 @@
-import {useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
-import {format} from 'date-fns';
 import {
   Avatar,
   Box,
   Card,
-  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -15,9 +13,36 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import {getInitials} from '../../utils/get-initials';
+import { getInitials } from '../../utils/get-initials';
+import { getAge } from '../../utils/get-age';
+import { Comparative } from '../comparative';
 
-export const CustomerListResults = ({customers, ...rest}) => {
+export const CustomerListResults = ({ ...rest }) => {
+  const [time, setTime] = useState({ mongo: 0, postgres: 0 })
+  const [loading, setLoading] = useState(true)
+  const [response, setResponse] = useState([])
+  const [count, setCount] = useState(0)
+
+  const fetchData = async () => {
+    setLoading(true)
+    for (const db of ['mongo', 'postgres']) {
+      const { response, time: t } = await (await fetch(`http://localhost:3000/api/${db}/employees/all?limit=${limit}&page=${page}`)).json()
+      if (db === 'postgres') setResponse(response)
+      setTime((time) => ({ ...time, [db]: t }))
+    }
+    setLoading(false)
+  }
+
+  const fetchCount = async () => {
+    const { response } = await (await fetch(`http://localhost:3000/api/postgres/employees/count`)).json()
+    setCount(response)
+  }
+
+  useEffect(() => {
+    fetchCount()
+    fetchData()
+  }, [])
+
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -34,132 +59,109 @@ export const CustomerListResults = ({customers, ...rest}) => {
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedCustomerIds.indexOf(id);
-    let newSelectedCustomerIds = [];
-
-    if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
-    } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-          selectedCustomerIds.slice(0, selectedIndex),
-          selectedCustomerIds.slice(selectedIndex + 1),
-      );
-    }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
-
   const handleLimitChange = (event) => {
+    fetchData();
     setLimit(event.target.value);
+    setPage(0);
   };
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
+    fetchData();
   };
 
   return (
-    <Card {...rest}>
-      <PerfectScrollbar>
-        <Box sx={{minWidth: 1050}}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedCustomerIds.length === customers.length}
-                    color="primary"
-                    indeterminate={
-                      selectedCustomerIds.length > 0 &&
-                      selectedCustomerIds.length < customers.length
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell>
-                <TableCell>
-                  Name
-                </TableCell>
-                <TableCell>
-                  Email
-                </TableCell>
-                <TableCell>
-                  Location
-                </TableCell>
-                <TableCell>
-                  Phone
-                </TableCell>
-                <TableCell>
-                  Registration date
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {customers.slice(0, limit).map((customer) => (
-                <TableRow
-                  hover
-                  key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
-                >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
-                      value="true"
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Box
-                      sx={{
-                        alignItems: 'center',
-                        display: 'flex',
-                      }}
+    <Comparative
+      time={time}
+      fetch={fetchData}
+      loading={loading}
+      child={<Card {...rest}>
+        <Card style={{ maxHeight: 1000, overflow: 'auto' }}>
+          <PerfectScrollbar>
+            <Box sx={{ minWidth: 100 }}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell align='center'>
+                      Name
+                    </TableCell>
+                    <TableCell align='center'>
+                      Employment Period
+                    </TableCell>
+                    <TableCell align='center'>
+                      Age
+                    </TableCell>
+                    <TableCell align='center'>
+                      Sex
+                    </TableCell>
+                    <TableCell align='center'>
+                      Hire Date
+                    </TableCell>
+                    <TableCell align='center'>
+                      Birth Date
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {response.slice(0, limit).map((employee) => (
+                    <TableRow
+                      hover
+                      key={employee.emp_no}
+                      selected={selectedCustomerIds.indexOf(employee.emp_no) !== -1}
                     >
-                      <Avatar
-                        src={customer.avatarUrl}
-                        sx={{mr: 2}}
-                      >
-                        {getInitials(customer.name)}
-                      </Avatar>
-                      <Typography
-                        color="textPrimary"
-                        variant="body1"
-                      >
-                        {customer.name}
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell>
-                    {customer.email}
-                  </TableCell>
-                  <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
-                  </TableCell>
-                  <TableCell>
-                    {customer.phone}
-                  </TableCell>
-                  <TableCell>
-                    {format(customer.createdAt, 'dd/MM/yyyy')}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Box>
-      </PerfectScrollbar>
-      <TablePagination
-        component="div"
-        count={customers.length}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleLimitChange}
-        page={page}
-        rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
-      />
-    </Card>
+                      <TableCell align='center'>
+                        <Box
+                          sx={{
+                            alignItems: 'center',
+                            display: 'flex',
+                          }}
+                        >
+                          <Avatar
+                            src={employee.avatarUrl}
+                            sx={{ mr: 2 }}
+                          >
+                            {getInitials(`${employee.first_name} ${employee.last_name}`)}
+                          </Avatar>
+                          <Typography
+                            color="textPrimary"
+                            variant="body1"
+                          >
+                            {employee.first_name} {employee.last_name}
+                          </Typography>
+                        </Box>
+                      </TableCell>
+                      <TableCell align='center'>
+                        {getAge(employee.hire_date)} years
+                      </TableCell>
+                      <TableCell align='center'>
+                        {getAge(employee.birth_date)} years
+                      </TableCell>
+                      <TableCell align='center'>
+                        {employee.gender}
+                      </TableCell>
+                      <TableCell align='center'>
+                        {employee.hire_date}
+                      </TableCell>
+                      <TableCell align='center'>
+                        {employee.birth_date}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Box>
+          </PerfectScrollbar>
+        </Card>
+        <TablePagination
+          component="div"
+          count={count}
+          onPageChange={handlePageChange}
+          onRowsPerPageChange={handleLimitChange}
+          page={page}
+          rowsPerPage={limit}
+          rowsPerPageOptions={[10, 25, 50, 100, 1000, 10000, 1000000]}
+        />
+      </Card>} />
   );
 };
 

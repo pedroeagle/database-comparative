@@ -96,7 +96,6 @@ export const LatestPromotedEmployees = (props) => {
     }
     setLoading(false)
   }
-  console.log(response)
   return (
     <Comparative loading={loading}
       time={time}

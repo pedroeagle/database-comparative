@@ -15,13 +15,12 @@ export const EmployeesByYear = (props) => {
     for (const db of ['mongo', 'postgres']) {
       const { response, time: t } = await (await fetch(`http://localhost:3000/api/${db}/employees/by/year`)).json()
       if (db === 'postgres') setResponse(response)
-      console.log(response)
       setTime((time) => ({ ...time, [db]: t }))
     }
     setLoading(false)
   }
   const theme = useTheme();
-  const data = loading?{}:{
+  const data = loading ? { datasets: [] } : {
     datasets: [
       {
         backgroundColor: '#3F51B5',
