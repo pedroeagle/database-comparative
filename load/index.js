@@ -2,8 +2,8 @@ const {loadPostgresDatabase, extractDumpFile, loadMongoDatabase} = require('./lo
 const {generateMongoDatabaseFromSqlFiles} = require('./parse');
 
 const load = async () =>
-  generateMongoDatabaseFromSqlFiles();
-//   extractDumpFile().then(async () => await Promise.all([loadMongoDatabase(), loadPostgresDatabase()]));
+  // generateMongoDatabaseFromSqlFiles();
+  extractDumpFile().then(async () => await Promise.all([loadMongoDatabase(), loadPostgresDatabase()]));
 load().then(() => {
   process.exit();
 });
