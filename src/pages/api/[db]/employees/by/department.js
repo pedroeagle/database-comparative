@@ -16,7 +16,7 @@ const mongo = async (req, res) => {
   const departments = await MongoDepartments.find();
   const employees = await Promise.all(departments.map(
       async ({dept_no}) =>
-        await MongoDepartmentEmployee.count({dept_no, to_date: '9999-01-01'})));
+        await MongoDepartmentEmployee.count({dept_no})));
   employees.forEach((count, i) => response[departments[i].dept_name] = count);
   res.response = response;
 };
