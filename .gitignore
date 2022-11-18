@@ -3,3 +3,5 @@ dump/
 */.next/*
 package-lock.json
 node_modules
+src/reports/
+*.DS_Store
