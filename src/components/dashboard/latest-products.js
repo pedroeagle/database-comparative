@@ -17,6 +17,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Comparative } from '../comparative';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
+import axios from '../../config/axios';
 
 const products = [
   {
@@ -78,7 +79,7 @@ export const LatestHirings = (props) => {
   const fetchData = async () => {
     setLoading(true)
     for (const db of ['mongo', 'postgres']) {
-      const { response, time: t } = await (await fetch(`http://localhost:3000/api/${db}/last/hirings`)).json()
+      const { data: { response, time: t }} = await axios.get(`http://localhost:3000/api/${db}/last/hirings`)
       if (db === 'postgres') setResponse(response)
       setTime((time) => ({ ...time, [db]: t }))
     }

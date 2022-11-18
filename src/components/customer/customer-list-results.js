@@ -16,6 +16,7 @@ import {
 import { getInitials } from '../../utils/get-initials';
 import { getAge } from '../../utils/get-age';
 import { Comparative } from '../comparative';
+import axios from '../../config/axios';
 
 export const CustomerListResults = ({ ...rest }) => {
   const [time, setTime] = useState({ mongo: 0, postgres: 0 })
@@ -26,7 +27,7 @@ export const CustomerListResults = ({ ...rest }) => {
   const fetchData = async () => {
     setLoading(true)
     for (const db of ['mongo', 'postgres']) {
-      const { response, time: t } = await (await fetch(`http://localhost:3000/api/${db}/employees/all?limit=${limit}&page=${page}`)).json()
+      const { data: { response, time: t }} = await axios.get(`http://localhost:3000/api/${db}/employees/all?limit=${limit}&page=${page}`)
       if (db === 'postgres') setResponse(response)
       setTime((time) => ({ ...time, [db]: t }))
     }
@@ -34,7 +35,7 @@ export const CustomerListResults = ({ ...rest }) => {
   }
 
   const fetchCount = async () => {
-    const { response } = await (await fetch(`http://localhost:3000/api/postgres/employees/count`)).json()
+    const { data: { response}} = await axios.get(`http://localhost:3000/api/postgres/employees/count`)
     setCount(response)
   }
 

@@ -3,6 +3,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import PeopleIcon from '@mui/icons-material/PeopleOutlined';
 import { Comparative } from '../comparative';
 import { useState } from 'react';
+import axios from '../../config/axios';
 
 export const Employees = (props) => {
   const [time, setTime] = useState({ mongo: 0, postgres: 0 })
@@ -12,7 +13,7 @@ export const Employees = (props) => {
   const fetchData = async () => {
     setLoading(true)
     for (const db of ['mongo', 'postgres']) {
-      const { response, time: t } = await (await fetch(`http://localhost:3000/api/${db}/employees/count`)).json()
+      const { data: { response, time: t }} = await axios.get(`http://localhost:3000/api/${db}/employees/count`)
       if (db === 'postgres') setResponse(response)
       setTime((time) => ({ ...time, [db]: t }))
     }

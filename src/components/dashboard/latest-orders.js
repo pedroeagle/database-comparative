@@ -18,6 +18,7 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { SeverityPill } from '../severity-pill';
 import { Comparative } from '../comparative';
 import { useState } from 'react';
+import axios from '../../config/axios';
 
 const orders = [
   {
@@ -90,7 +91,7 @@ export const LatestPromotedEmployees = (props) => {
   const fetchData = async () => {
     setLoading(true)
     for (const db of ['mongo', 'postgres']) {
-      const { response, time: t } = await (await fetch(`http://localhost:3000/api/${db}/last/promotions`)).json()
+      const { data: { response, time: t }} = await axios.get(`http://localhost:3000/api/${db}/last/promotions`)
       if (db === 'postgres') setResponse(response)
       setTime((time) => ({ ...time, [db]: t }))
     }

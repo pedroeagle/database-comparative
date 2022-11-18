@@ -2,6 +2,7 @@ import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { Comparative } from '../comparative';
 import { useState } from 'react';
+import axios from '../../config/axios';
 
 export const Salaries = (props) => {
   const [time, setTime] = useState({ mongo: 0, postgres: 0 })
@@ -11,7 +12,7 @@ export const Salaries = (props) => {
   const fetchData = async () => {
     setLoading(true)
     for (const db of ['mongo', 'postgres']) {
-      const { response, time: t } = await (await fetch(`http://localhost:3000/api/${db}/salaries/count`)).json()
+      const { data: { response, time: t }} = await axios.get(`http://localhost:3000/api/${db}/salaries/count`)
       if (db === 'postgres') setResponse(response)
       setTime((time) => ({ ...time, [db]: t }))
     }
