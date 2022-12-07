@@ -3,6 +3,8 @@ import InsertChartIcon from '@mui/icons-material/InsertChartOutlined';
 import { Comparative } from '../comparative';
 import { useState } from 'react';
 import axios from '../../config/axios';
+import { config } from 'dotenv'
+config()
 
 export const Titles = (props) => {
   const [time, setTime] = useState({ mongo: 0, postgres: 0 })
@@ -12,7 +14,7 @@ export const Titles = (props) => {
   const fetchData = async () => {
     setLoading(true)
     for (const db of ['mongo', 'postgres']) {
-      const { data: { response, time: t }} = await axios.get(`http://localhost:3000/api/${db}/titles/count`)
+      const { data: { response, time: t }} = await axios.get(`/api/${db}/titles/count`)
       if (db === 'postgres') setResponse(response)
       setTime((time) => ({ ...time, [db]: t }))
     }

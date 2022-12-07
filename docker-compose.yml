@@ -9,11 +9,12 @@ services:
     links:
       - postgres
     environment:
-      PORT: 3000
+      PORT: 80
+      BASE_URL: ${BASE_URL}
     ports:
-      - '3000:3000'
+      - '80:80'
     expose:
-      - 3000
+      - 80
     volumes:
       - ./:/usr/app
 

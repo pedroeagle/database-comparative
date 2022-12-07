@@ -18,6 +18,8 @@ import { Comparative } from '../comparative';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
 import axios from '../../config/axios';
+import { config } from 'dotenv'
+config()
 
 const products = [
   {
@@ -79,7 +81,7 @@ export const LatestHirings = (props) => {
   const fetchData = async () => {
     setLoading(true)
     for (const db of ['mongo', 'postgres']) {
-      const { data: { response, time: t }} = await axios.get(`http://localhost:3000/api/${db}/last/hirings`)
+      const { data: { response, time: t }} = await axios.get(`/api/${db}/last/hirings`)
       if (db === 'postgres') setResponse(response)
       setTime((time) => ({ ...time, [db]: t }))
     }

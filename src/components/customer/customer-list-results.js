@@ -27,7 +27,7 @@ export const CustomerListResults = ({ ...rest }) => {
   const fetchData = async () => {
     setLoading(true)
     for (const db of ['mongo', 'postgres']) {
-      const { data: { response, time: t }} = await axios.get(`http://localhost:3000/api/${db}/employees/all?limit=${limit}&page=${page}`)
+      const { data: { response, time: t } } = await axios.get(`/api/${db}/employees/all?limit=${limit}&page=${page}`)
       if (db === 'postgres') setResponse(response)
       setTime((time) => ({ ...time, [db]: t }))
     }
@@ -35,7 +35,7 @@ export const CustomerListResults = ({ ...rest }) => {
   }
 
   const fetchCount = async () => {
-    const { data: { response}} = await axios.get(`http://localhost:3000/api/postgres/employees/count`)
+    const { data: { response } } = await axios.get(`/api/postgres/employees/count`)
     setCount(response)
   }
 

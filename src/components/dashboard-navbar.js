@@ -58,7 +58,7 @@ export const DashboardNavbar = (props) => {
           </Tooltip>
           <Box sx={{ flexGrow: 1 }} />
           <Tooltip title="Download CSV Report">
-            <a href={`http://localhost:3000/api/reports/${window.sessionStorage.getItem('id')}`} target="blank">
+            <a href={`/api/reports/${window.sessionStorage.getItem('id')}`} target="blank">
             <Button
               startIcon={(<DownloadIcon fontSize="small" />)}
               sx={{ mr: 1 }}

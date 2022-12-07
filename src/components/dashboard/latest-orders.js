@@ -19,6 +19,8 @@ import { SeverityPill } from '../severity-pill';
 import { Comparative } from '../comparative';
 import { useState } from 'react';
 import axios from '../../config/axios';
+import { config } from 'dotenv'
+config()
 
 const orders = [
   {
@@ -91,7 +93,7 @@ export const LatestPromotedEmployees = (props) => {
   const fetchData = async () => {
     setLoading(true)
     for (const db of ['mongo', 'postgres']) {
-      const { data: { response, time: t }} = await axios.get(`http://localhost:3000/api/${db}/last/promotions`)
+      const { data: { response, time: t }} = await axios.get(`/api/${db}/last/promotions`)
       if (db === 'postgres') setResponse(response)
       setTime((time) => ({ ...time, [db]: t }))
     }
