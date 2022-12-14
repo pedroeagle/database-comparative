@@ -46,7 +46,7 @@ export const Departments = (props) => {
                 color="textPrimary"
                 variant="h5"
               >
-                {response}
+                {response >= 0 ? response : ''}
               </Typography>
             </Grid>
             <Grid item>

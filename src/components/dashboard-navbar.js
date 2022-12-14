@@ -51,11 +51,11 @@ export const DashboardNavbar = (props) => {
           >
             <MenuIcon fontSize="small" />
           </IconButton>
-          <Tooltip title="Search">
+          {/* <Tooltip title="Search">
             <IconButton sx={{ ml: 1 }}>
               <SearchIcon fontSize="small" />
             </IconButton>
-          </Tooltip>
+          </Tooltip> */}
           <Box sx={{ flexGrow: 1 }} />
           <Tooltip title="Download CSV Report">
             <a href={`/api/reports/${window.sessionStorage.getItem('id')}`} target="blank">
@@ -67,7 +67,7 @@ export const DashboardNavbar = (props) => {
             </Button>
             </a>
           </Tooltip>
-          <Tooltip title="Notifications">
+          {/* <Tooltip title="Notifications">
             <IconButton sx={{ ml: 1 }}>
               <Badge
                 badgeContent={4}
@@ -77,8 +77,8 @@ export const DashboardNavbar = (props) => {
                 <BellIcon fontSize="small" />
               </Badge>
             </IconButton>
-          </Tooltip>
-          <Avatar
+          </Tooltip> */}
+          {/* <Avatar
             onClick={() => setOpenAccountPopover(true)}
             ref={settingsRef}
             sx={{
@@ -90,7 +90,7 @@ export const DashboardNavbar = (props) => {
             src="/static/images/avatars/avatar_1.png"
           >
             <UserCircleIcon fontSize="small" />
-          </Avatar>
+          </Avatar> */}
         </Toolbar>
       </DashboardNavbarRoot>
       <AccountPopover
