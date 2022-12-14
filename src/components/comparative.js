@@ -24,7 +24,7 @@ const Loading = styled('div')(({ theme, ownerState }) => {
 
 export const Comparative = ({ time: { mongo, postgres }, fetch, child, loading }) => {
   useEffect(() => {
-    fetch()
+    if (fetch) fetch()
   }, [])
   const theme = useTheme();
   // const options = {
@@ -131,7 +131,7 @@ export const Comparative = ({ time: { mongo, postgres }, fetch, child, loading }
           />
           <Loading>
             <Box sx={{ display: 'flex', justifyItems: 'center' }}>
-              {loading ? <CircularProgress color="black" size={15} thickness={5} /> : <RefreshIcon onClick={fetch} style={{ cursor: 'pointer' }} />}
+              {!fetch ? <></> : loading ? <CircularProgress color="black" size={15} thickness={5} /> : <RefreshIcon onClick={fetch} style={{ cursor: 'pointer' }} />}
             </Box>
           </Loading>
         </ComparativeLayout>

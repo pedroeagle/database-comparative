@@ -1,4 +1,4 @@
-const {mongoose, connection} = require('../../database');
+const { mongoose, connection } = require('../../database');
 
 const EmployeesSchema = new mongoose.Schema({
   emp_no: {
@@ -8,6 +8,7 @@ const EmployeesSchema = new mongoose.Schema({
   gender: {
     type: String,
     required: true,
+    enum: ['M', 'F']
   },
   birth_date: {
     type: Date,
@@ -20,10 +21,12 @@ const EmployeesSchema = new mongoose.Schema({
   first_name: {
     type: String,
     required: true,
+    faker: 'name.firstName'
   },
   last_name: {
     type: String,
     required: true,
+    faker: 'name.lastName'
   },
   salaries: [{
     salary: Number,
@@ -31,10 +34,13 @@ const EmployeesSchema = new mongoose.Schema({
     to_date: Date,
   }],
   titles: [{
-    title: String,
+    title: {
+      type: String,
+      enum: ['Engineer', 'Senior Engineer', 'Manager', 'Assistant Engineer', 'Staff', 'Senior Staff', 'Technique Leader']
+    },
     from_date: Date,
     to_date: Date,
   }],
-}, {collection: 'employees'});
+}, { collection: 'employees' });
 
-module.exports = {Employees: mongoose.models.employees || mongoose.model('employees', EmployeesSchema, 'employees')};
+module.exports = { Employees: mongoose.models.employees || mongoose.model('employees', EmployeesSchema, 'employees'), EmployeesSchema };

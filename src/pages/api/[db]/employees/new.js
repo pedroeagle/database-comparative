@@ -16,7 +16,7 @@ const mongo = async (req, res) => {
     res.response = response
 };
 const postgres = async (req, res) => {
-    const { body } = requestIdleCallback
+    const { body } = req
     const transaction = await sequelize.transaction()
     try {
         const employee = await PostgresEmployees.create(body, { transaction })
