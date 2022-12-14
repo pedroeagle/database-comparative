@@ -7,7 +7,7 @@ export const Salaries = sequelize.define('salaries', {
     primaryKey: true,
   },
   salary: {
-    type: DataTypes.DATE,
+    type: DataTypes.INTEGER,
   },
   from_date: {
     type: DataTypes.DATE,
