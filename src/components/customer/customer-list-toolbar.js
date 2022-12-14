@@ -105,6 +105,7 @@ export const CustomerListToolbar = (props) => {
                 color="primary"
                 variant="contained"
                 onClick={insertRandomEmployee}
+                style={{ width: '100%' }}
               >
                 Add Random Employee
               </Button>

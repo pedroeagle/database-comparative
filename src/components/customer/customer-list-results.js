@@ -17,11 +17,21 @@ import { getInitials } from '../../utils/get-initials';
 import { getAge } from '../../utils/get-age';
 import { Comparative } from '../comparative';
 import axios from '../../config/axios';
+import EditEmployeeModal from '../edit-employee-modal';
 
 export const CustomerListResults = ({ setResponse, response, ...rest }) => {
   const [time, setTime] = useState({ mongo: 0, postgres: 0 })
   const [loading, setLoading] = useState(true)
   const [count, setCount] = useState(0)
+  const [open, setOpen] = useState(false)
+  const [selectedEmployee, setSelectedEmployee] = useState({
+    emp_no: 0,
+    birth_date: '',
+    first_name: '',
+    last_name: '',
+    gender: '',
+    hire_date: '',
+  })
 
   const fetchData = async () => {
     setLoading(true)
@@ -102,12 +112,15 @@ export const CustomerListResults = ({ setResponse, response, ...rest }) => {
                     </TableCell>
                   </TableRow>
                 </TableHead>
+                <EditEmployeeModal employee={selectedEmployee} employeeList={response} setEmployeeList={setResponse} open={open} setOpen={setOpen} />
                 <TableBody>
                   {response.slice(0, limit).map((employee) => (
                     <TableRow
                       hover
                       key={employee.emp_no}
                       selected={selectedCustomerIds.indexOf(employee.emp_no) !== -1}
+                      onClick={() => { setSelectedEmployee(employee); setOpen(true) }}
+                      style={{ cursor: 'pointer' }}
                     >
                       <TableCell align='center'>
                         <Box

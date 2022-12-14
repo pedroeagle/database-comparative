@@ -13,6 +13,14 @@ const ComparativeLayout = styled('div')(({ theme, ownerState }) => {
     alignItems: 'center'
   };
 });
+const ComparativeLayoutFullWidth = styled('div')(({ theme, ownerState }) => {
+  return {
+    height: '80px',
+    display: 'flex',
+    width: '100%',
+    alignItems: 'center'
+  };
+});
 const Loading = styled('div')(({ theme, ownerState }) => {
   return {
     display: 'flex',
@@ -124,17 +132,24 @@ export const Comparative = ({ time: { mongo, postgres }, fetch, child, loading }
     <>
       <div>
         {child}
-        <ComparativeLayout>
-          <Bar
-            data={data}
-            options={options}
-          />
-          <Loading>
-            <Box sx={{ display: 'flex', justifyItems: 'center' }}>
-              {!fetch ? <></> : loading ? <CircularProgress color="black" size={15} thickness={5} /> : <RefreshIcon onClick={fetch} style={{ cursor: 'pointer' }} />}
-            </Box>
-          </Loading>
-        </ComparativeLayout>
+        {fetch ?
+          <ComparativeLayout>
+            <Bar
+              data={data}
+              options={options}
+            />
+            <Loading>
+              <Box sx={{ display: 'flex', justifyItems: 'center' }}>
+                {loading ? <CircularProgress color="black" size={15} thickness={5} /> : <RefreshIcon onClick={fetch} style={{ cursor: 'pointer' }} />}
+              </Box>
+            </Loading>
+          </ComparativeLayout> :
+          <ComparativeLayoutFullWidth>
+            <Bar
+              data={data}
+              options={options}
+            />
+          </ComparativeLayoutFullWidth>}
       </div>
     </>
   )
