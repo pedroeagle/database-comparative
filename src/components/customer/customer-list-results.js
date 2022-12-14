@@ -112,7 +112,7 @@ export const CustomerListResults = ({ setResponse, response, ...rest }) => {
                     </TableCell>
                   </TableRow>
                 </TableHead>
-                <EditEmployeeModal employee={selectedEmployee} employeeList={response} setEmployeeList={setResponse} open={open} setOpen={setOpen} />
+                <EditEmployeeModal employee={selectedEmployee} employeesList={response} setEmployeesList={setResponse} open={open} setOpen={setOpen} />
                 <TableBody>
                   {response.slice(0, limit).map((employee) => (
                     <TableRow

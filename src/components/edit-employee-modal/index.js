@@ -30,12 +30,9 @@ const EditEmployeeModal = ({ open, setOpen, employee, employeesList, setEmployee
         setLoading(true)
         for (const db of ['mongo', 'postgres']) {
             const { data: { response, time: t } } = await axios.put(`/api/${db}/employees/update`, localEmployee)
-            if (db === 'postgres') {
-                // setEmployeesList([response.employee, ...employeesList])
-                // setResponse(response)
-            }
             setTime((time) => ({ ...time, [db]: t }))
         }
+        setEmployeesList(employeesList.map(employee => employee.emp_no === localEmployee.emp_no ? localEmployee : employee))
         setLoading(false)
     }
     return (
