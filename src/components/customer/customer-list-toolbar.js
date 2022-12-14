@@ -16,6 +16,7 @@ import { Comparative } from '../comparative';
 
 export const CustomerListToolbar = (props) => {
   const [loading, setLoading] = useState(true)
+  const { response: employeesList, setResponse: setEmployeesList } = props
   const [response, setResponse] = useState([])
   const [time, setTime] = useState({ mongo: 0, postgres: 0 })
   const [randomEmployee, setRandomEmployee] = useState({
@@ -52,7 +53,10 @@ export const CustomerListToolbar = (props) => {
     setLoading(true)
     for (const db of ['mongo', 'postgres']) {
       const { data: { response, time: t } } = await axios.post(`/api/${db}/employees/new`, randomEmployee)
-      if (db === 'postgres') setResponse(response)
+      if (db === 'postgres') {
+        setEmployeesList([response.employee, ...employeesList])
+        setResponse(response)
+      }
       setTime((time) => ({ ...time, [db]: t }))
     }
     newRandomEmployee()

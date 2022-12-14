@@ -18,10 +18,9 @@ import { getAge } from '../../utils/get-age';
 import { Comparative } from '../comparative';
 import axios from '../../config/axios';
 
-export const CustomerListResults = ({ ...rest }) => {
+export const CustomerListResults = ({ setResponse, response, ...rest }) => {
   const [time, setTime] = useState({ mongo: 0, postgres: 0 })
   const [loading, setLoading] = useState(true)
-  const [response, setResponse] = useState([])
   const [count, setCount] = useState(0)
 
   const fetchData = async () => {
