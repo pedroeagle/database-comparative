@@ -104,14 +104,14 @@ export const EmployeesByYear = (props) => {
       fetch={fetchData}
       child={<Card {...props}>
         <CardHeader
-          action={(
-            <Button
-              endIcon={<ArrowDropDownIcon fontSize="small" />}
-              size="small"
-            >
-              25-07 to 31-07
-            </Button>
-          )}
+          // action={(
+          //   <Button
+          //     endIcon={<ArrowDropDownIcon fontSize="small" />}
+          //     size="small"
+          //   >
+          //     25-07 to 31-07
+          //   </Button>
+          // )}
           title="Hirings on July Last Week"
         />
         <Divider />
@@ -128,7 +128,7 @@ export const EmployeesByYear = (props) => {
             />
           </Box>
         </CardContent>
-        <Divider />
+        {/* <Divider />
         <Box
           sx={{
             display: 'flex',
@@ -143,7 +143,7 @@ export const EmployeesByYear = (props) => {
           >
             Overview
           </Button>
-        </Box>
+        </Box> */}
       </Card>} />
   );
 };

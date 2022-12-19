@@ -158,7 +158,7 @@ export const LatestPromotedEmployees = (props) => {
             </Table>
           </Box>
         </PerfectScrollbar>
-        <Box
+        {/* <Box
           sx={{
             display: 'flex',
             justifyContent: 'flex-end',
@@ -173,7 +173,7 @@ export const LatestPromotedEmployees = (props) => {
           >
             View all
           </Button>
-        </Box>
+        </Box> */}
       </Card>} />
   )
 };

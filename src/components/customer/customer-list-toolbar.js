@@ -16,7 +16,7 @@ import { Comparative } from '../comparative';
 
 export const CustomerListToolbar = (props) => {
   const [loading, setLoading] = useState(true)
-  const { response: employeesList, setResponse: setEmployeesList } = props
+  const { response: employeesList, setResponse: setEmployeesList, time: employeesTime, loading: employeesLoading, search, setSearch, fetchData } = props
   const [response, setResponse] = useState([])
   const [time, setTime] = useState({ mongo: 0, postgres: 0 })
   const [randomEmployee, setRandomEmployee] = useState({
@@ -43,6 +43,14 @@ export const CustomerListToolbar = (props) => {
       }
     ]
   })
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(async () => {
+      await fetchData()
+    }, 1000)
+
+    return () => clearTimeout(delayDebounceFn)
+  }, [search])
 
   const newRandomEmployee = async () => {
     const { data } = await axios.get('/api/employee/random')
@@ -97,42 +105,51 @@ export const CustomerListToolbar = (props) => {
           >
             Export
           </Button> */}
-          <Comparative
-            time={time}
-            loading={loading}
-            child={
-              <Button
-                color="primary"
-                variant="contained"
-                onClick={insertRandomEmployee}
-                style={{ width: '100%' }}
-              >
-                Add Random Employee
-              </Button>
-            } />
         </Box>
       </Box>
       <Box sx={{ mt: 3 }}>
         <Card>
-          <CardContent>
-            <Box sx={{ maxWidth: 500 }}>
-              <TextField
-                fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SvgIcon
-                        color="action"
-                        fontSize="small"
-                      >
-                        <SearchIcon />
-                      </SvgIcon>
-                    </InputAdornment>
-                  ),
-                }}
-                placeholder="Search customer"
-                variant="outlined"
+          <CardContent style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Box sx={{ maxWidth: '49%', width: '49%' }}>
+              <Comparative
+                child={<TextField
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SvgIcon
+                          color="action"
+                          fontSize="small"
+                        >
+                          <SearchIcon />
+                        </SvgIcon>
+                      </InputAdornment>
+                    ),
+                  }}
+                  onChange={e => { setTime({ postgres: 0, mongo: 0 }); setSearch(e.target.value) }}
+                  value={search}
+                  placeholder="Search employee"
+                  variant="outlined"
+                />}
+                fetch={search.length > 0 ? fetchData : false}
+                loading={employeesLoading}
+                time={search.length > 0 ? employeesTime : { mongo: 0, postgres: 0 }}
               />
+            </Box>
+            <Box sx={{ maxWidth: '49%', width: '49%' }}>
+              <Comparative
+                time={time}
+                loading={loading}
+                child={
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={insertRandomEmployee}
+                    style={{ width: '100%', height: '55px' }}
+                  >
+                    Add Random Employee
+                  </Button>
+                } />
             </Box>
           </CardContent>
         </Card>

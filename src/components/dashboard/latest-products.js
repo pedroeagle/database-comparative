@@ -131,7 +131,7 @@ export const LatestHirings = (props) => {
             </ListItem>
           ))}
         </List>
-        <Divider />
+        {/* <Divider />
         <Box
           sx={{
             display: 'flex',
@@ -147,7 +147,7 @@ export const LatestHirings = (props) => {
           >
             View all
           </Button>
-        </Box>
+        </Box> */}
       </Card>} />
   )
 };
