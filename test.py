@@ -22,7 +22,7 @@ routes = [
   'employees/by/department?',
   'last/hirings?',
   'last/promotions?',
-  'employees/all?page=page&size=size&',
+  # 'employees/all?page=page&size=size&',
   'employees/new?'
 ]
 
@@ -45,12 +45,13 @@ def get_departments ():
     dbs = ['mongo', 'postgres']
     shuffle(dbs)
     for db in dbs:
-      s = randint(0, 5000)/1000
+      s = randint(5, 10)
+      time.sleep(s)
       if 'new' in routes[i]:
         requests.post(f'{host}/{db}/{routes[i]}id=test', json=employee)
       else:
         requests.get(f'{host}/{db}/{routes[i]}id=test'.replace('=page', f'={page}').replace('=size', f'={size}'))
-    time.sleep(s)
+    
 
 if __name__ == "__main__":
     threads = [threading.Thread(target=get_departments) for t in range(100) ]
