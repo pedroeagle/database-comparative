@@ -21,12 +21,11 @@ const storeResponseTime = async (req, { start, end, time }) => {
   const filename = `reports/${id}-${random}.csv`
   await fs.ensureFile(filename);
 
-  const csv = await parse().fromFile(filename);
   const path = url.replace(`/api/${db}`, '').match(/[^?]+/)[0];
 
-  converter.json2csv([...csv, { start, end, time, db, path, ...query }], (_, res) => {
-    fs.writeFileSync(filename, res.replace(/^.*\n/, '') + '\n');
-  });
+  converter.json2csv([{ start, end, time, db, path, ...query }], (_, res) => {
+    fs.writeFileSync(filename, res + '\n');
+  }, { prependHeader: false });
 };
 
 export const switchHandlers = async (req, res, mongo, postgres) => {
