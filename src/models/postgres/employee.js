@@ -31,6 +31,3 @@ export const Employees = sequelize.define('employees', {
 Employees.hasMany(Titles, {foreignKey: 'emp_no'});
 Employees.hasMany(Salaries, {foreignKey: 'emp_no'});
 Employees.hasMany(DepartmentEmployee, {foreignKey: 'emp_no'});
-// DepartmentEmployee.belongsTo(Employees, {
-//   foreignKey: 'emp_no',
-// });
