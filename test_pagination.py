@@ -16,7 +16,7 @@ def get_random_page(id, limit):
 def get_employee():
   return requests.get(f'{host}/employee/random').json()
 
-def get_departments ():
+def target ():
   for limit in limits:
     page = get_random_page('test', limit)
     employee = get_employee()
@@ -29,6 +29,6 @@ def get_departments ():
     
 
 if __name__ == "__main__":
-    threads = [threading.Thread(target=get_departments) for t in range(100) ]
-    for t in threads:
-      t.start()
+  threads = [threading.Thread(target=target) for t in range(100) ]
+  for t in threads:
+    t.start()
