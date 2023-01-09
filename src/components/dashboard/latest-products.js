@@ -80,7 +80,7 @@ export const LatestHirings = (props) => {
 
   const fetchData = async () => {
     setLoading(true)
-    for (const db of ['mongo', 'postgres']) {
+    for (const db of ['mongo', 'postgres', 'mongo_indexed']) {
       const { data: { response, time: t }} = await axios.get(`/api/${db}/last/hirings`)
       if (db === 'postgres') setResponse(response)
       setTime((time) => ({ ...time, [db]: t }))

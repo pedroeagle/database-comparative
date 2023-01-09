@@ -32,6 +32,7 @@ export const switchHandlers = async (req, res, mongo, postgres) => {
   const { query: { db } } = req;
   switch (db) {
     case 'mongo':
+    case 'mongo_indexed':
       return mongo(req, res);
     case 'postgres':
       return postgres(req, res);

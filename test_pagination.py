@@ -20,7 +20,7 @@ def target ():
   for limit in limits:
     page = get_random_page('test', limit)
     employee = get_employee()
-    dbs = ['mongo', 'postgres']
+    dbs = ['mongo', 'postgres', 'mongo_indexed']
     shuffle(dbs)
     for db in dbs:
         s = randint(5, 10)

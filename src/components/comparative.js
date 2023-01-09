@@ -30,13 +30,13 @@ const Loading = styled('div')(({ theme, ownerState }) => {
   };
 });
 
-export const Comparative = ({ time: { mongo, postgres }, fetch, child, loading }) => {
+export const Comparative = ({ time: { mongo, postgres, mongo_indexed }, fetch, child, loading }) => {
   useEffect(() => {
     if (fetch) fetch()
   }, [])
   const theme = useTheme();
   // const options = {
-  //   labels: ['Mongo', 'Postgres'],
+  //   labels: ['mongo', 'postgres', 'mongo_indexed'],
   //   datasets: [
   //     {
   //       label: 'Mongo',
@@ -53,7 +53,7 @@ export const Comparative = ({ time: { mongo, postgres }, fetch, child, loading }
   const data = {
     datasets: [
       {
-        backgroundColor: 'rgba(82, 171, 76, 0.5)',
+        backgroundColor: 'rgba(251,188,4, 0.5)',
         barPercentage: 0.5,
         barThickness: 12,
         borderRadius: 4,
@@ -72,6 +72,16 @@ export const Comparative = ({ time: { mongo, postgres }, fetch, child, loading }
         label: 'Postgres',
         maxBarThickness: 8,
       },
+      {
+        backgroundColor: 'rgba(82, 171, 76, 0.5)',
+        barPercentage: 0.5,
+        barThickness: 12,
+        borderRadius: 4,
+        categoryPercentage: 0.5,
+        data: [loading ? 0 : mongo_indexed],
+        label: 'Mongo Indexed',
+        maxBarThickness: 8
+      }
     ],
     labels: [''],
   };

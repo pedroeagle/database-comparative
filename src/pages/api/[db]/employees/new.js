@@ -1,6 +1,4 @@
 import middleware, { switchHandlers } from '../../../../utils/middleware';
-import { Employees as MongoEmployees }
-    from '../../../../models/mongo/employee';
 import { Employees as PostgresEmployees }
     from '../../../../models/postgres/employee';
 import { sequelize } from '../../../../database';
@@ -12,6 +10,8 @@ export default middleware(async (req, res) => {
 });
 const mongo = async (req, res) => {
     const { body } = req
+    const { query: { db } } = req
+    const MongoEmployees = require('../../../../models/mongo/employee')[db === 'mongo' ? 'Employees' : 'EmployeesIndexed'];
     const response = await MongoEmployees.create([body])
     res.response = response
 };

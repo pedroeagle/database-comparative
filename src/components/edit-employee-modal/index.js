@@ -28,7 +28,7 @@ const EditEmployeeModal = ({ open, setOpen, employee, employeesList, setEmployee
     }
     const updateEmployee = async () => {
         setLoading(true)
-        for (const db of ['mongo', 'postgres']) {
+        for (const db of ['mongo', 'postgres', 'mongo_indexed']) {
             const { data: { response, time: t } } = await axios.put(`/api/${db}/employees/update`, localEmployee)
             setTime((time) => ({ ...time, [db]: t }))
         }

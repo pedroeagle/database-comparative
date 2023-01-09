@@ -3,7 +3,7 @@ import { Box, Container } from '@mui/material';
 import { CustomerListResults } from '../components/customer/customer-list-results';
 import { CustomerListToolbar } from '../components/customer/customer-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import axios from '../config/axios';
 
 const Page = () => {
@@ -15,7 +15,7 @@ const Page = () => {
   const [search, setSearch] = useState('')
   const fetchData = async () => {
     setLoading(true)
-    for (const db of ['mongo', 'postgres']) {
+    for (const db of ['mongo', 'postgres', 'mongo_indexed']) {
       const url = search.length === 0 ? `/api/${db}/employees/all?limit=${limit}&page=${page}` : `/api/${db}/employees/search?search=${search}`
       const { data: { response, time: t }, status } = await axios.get(url)
       if (db === 'postgres') setResponse(response)

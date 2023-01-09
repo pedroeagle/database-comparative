@@ -32,7 +32,7 @@ def target ():
   search = update['first_name']
   employee = get_employee()
   for i in indexes:
-    dbs = ['mongo', 'postgres']
+    dbs = ['mongo', 'postgres', 'mongo_indexed']
     shuffle(dbs)
     for db in dbs:
       s = randint(5, 10)
