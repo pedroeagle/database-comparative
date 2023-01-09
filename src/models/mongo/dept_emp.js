@@ -20,6 +20,10 @@ const buildSchema = collection => new mongoose.Schema({
   from_date: {
     type: Date,
     required: true,
+    index: collection === 'dept_emp_indexed' ? {
+      unique: false,
+      type: 1
+    } : false
   },
   to_date: {
     type: Date,
@@ -29,7 +33,6 @@ const buildSchema = collection => new mongoose.Schema({
 
 const DepartmentEmployeeSchema = buildSchema('dept_emp')
 const DepartmentEmployeeIndexedSchema = buildSchema('dept_emp_indexed')
-DepartmentEmployeeIndexedSchema.index({ dept_no: 1, emp_no: 1 }, { unique: true })
 
 module.exports = {
   DepartmentEmployee: mongoose.models.dept_emp ||

@@ -49,8 +49,7 @@ const loadMongoDatabase = async () => {
             const Admin = mongoose.mongo.Admin
             const { databases } = await new Admin(connection.db).listDatabases()
             const employees = databases.find(({ name }) => name === 'employees')
-            const employees_indexed = databases.find(({ name }) => name === 'employees_indexed')
-            if (!employees || employees?.sizeOnDisk <= 8192 || !employees_indexed || employees_indexed?.sizeOnDisk <= 8192) {
+            if (!employees || employees?.sizeOnDisk <= 8192) {
                 console.log('\n#####\nLoading Mongo Database...\n#####\n')
                 const collections = ['employees', 'departments', 'dept_emp', 'dept_manager']
                 for (const collection of collections) {
