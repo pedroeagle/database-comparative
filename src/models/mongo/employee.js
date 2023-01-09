@@ -1,9 +1,13 @@
-const { mongoose, connection } = require('../../database');
+const { connection, mongoose } = require('../../database');
 
-const EmployeesSchema = new mongoose.Schema({
+const buildSchema = collection => new mongoose.Schema({
   emp_no: {
     type: String,
     required: true,
+    index: collection === 'employees_indexed' ? {
+      unique: true,
+      type: 1
+    } : false
   },
   gender: {
     type: String,
@@ -17,6 +21,10 @@ const EmployeesSchema = new mongoose.Schema({
   hire_date: {
     type: Date,
     required: true,
+    index: collection === 'employees_indexed' ? {
+      unique: false,
+      type: 1
+    } : false
   },
   first_name: {
     type: String,
@@ -41,6 +49,17 @@ const EmployeesSchema = new mongoose.Schema({
     from_date: Date,
     to_date: Date,
   }],
-}, { collection: 'employees' });
+}, { collection });
 
-module.exports = { Employees: mongoose.models.employees || mongoose.model('employees', EmployeesSchema, 'employees'), EmployeesSchema };
+const EmployeesSchema = buildSchema('employees')
+const EmployeesIndexedSchema = buildSchema('employees_indexed')
+
+module.exports = {
+  Employees:
+    mongoose.models.employees ||
+    mongoose.model('employees', EmployeesSchema, 'employees'),
+  EmployeesIndexed: mongoose.models.employees_indexed ||
+    mongoose.model('employees_indexed', EmployeesIndexedSchema, 'employees_indexed'),
+  EmployeesSchema,
+  EmployeesIndexedSchema
+};

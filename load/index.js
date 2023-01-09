@@ -1,5 +1,5 @@
-const {loadPostgresDatabase, extractDumpFile, loadMongoDatabase} = require('./load');
-const {generateMongoDatabaseFromSqlFiles} = require('./parse');
+const { loadPostgresDatabase, extractDumpFile, loadMongoDatabase } = require('./load');
+const { generateMongoDatabaseFromSqlFiles } = require('./parse');
 
 const load = async () =>
   // generateMongoDatabaseFromSqlFiles();
