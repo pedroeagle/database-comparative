@@ -45,7 +45,7 @@ const Page = () => {
         <Container maxWidth={false}>
           <CustomerListToolbar response={response} setResponse={setResponse} time={time} loading={loading} search={search} setSearch={setSearch} fetchData={fetchData} />
           <Box sx={{ mt: 3 }}>
-            <CustomerListResults response={response} setResponse={setResponse} fetchCount={fetchCount} fetchData={fetchData} time={time} loading={loading} count={count} limit={limit} page={page} search={search} setPage={setPage} />
+            <CustomerListResults response={response} setResponse={setResponse} fetchCount={fetchCount} fetchData={fetchData} time={time} loading={loading} count={count} limit={limit} page={page} search={search} setPage={setPage} setLimit={setLimit} />
           </Box>
         </Container>
       </Box>

@@ -155,7 +155,7 @@ export const CustomerListResults = ({ setResponse, response, fetchCount, fetchDa
           onRowsPerPageChange={handleLimitChange}
           page={page}
           rowsPerPage={limit}
-          rowsPerPageOptions={[10, 25, 50, 100, 1000, 10000, 1000000]}
+          rowsPerPageOptions={[10, 25, 50, 100, 1000, 10000]}
         />}
       </Card>} />
   );
