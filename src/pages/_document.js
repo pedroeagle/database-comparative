@@ -1,7 +1,7 @@
-import {Children} from 'react';
-import Document, {Html, Head, Main, NextScript} from 'next/document';
+import React, { Children } from 'react';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 import createEmotionServer from '@emotion/server/create-instance';
-import {createEmotionCache} from '../utils/create-emotion-cache';
+import { createEmotionCache } from '../utils/create-emotion-cache';
 
 class CustomDocument extends Document {
   render() {
@@ -62,7 +62,7 @@ class CustomDocument extends Document {
 CustomDocument.getInitialProps = async (ctx) => {
   const originalRenderPage = ctx.renderPage;
   const cache = createEmotionCache();
-  const {extractCriticalToChunks} = createEmotionServer(cache);
+  const { extractCriticalToChunks } = createEmotionServer(cache);
 
   ctx.renderPage = () => originalRenderPage({
     enhanceApp: (App) => (props) => (
@@ -80,7 +80,7 @@ CustomDocument.getInitialProps = async (ctx) => {
       data-emotion={`${style.key} ${style.ids.join(' ')}`}
       key={style.key}
       // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={{__html: style.css}}
+      dangerouslySetInnerHTML={{ __html: style.css }}
     />
   ));
 

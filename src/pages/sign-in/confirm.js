@@ -1,17 +1,17 @@
-import {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react'
 import Router from 'next/router';
 import NextLink from 'next/link';
-import {Box, CircularProgress, Typography} from '@mui/material';
-import {Logo} from '../../components/logo';
-import {useAuthContext} from '../../contexts/auth-context';
-import {auth, ENABLE_AUTH} from '../../lib/auth';
+import { Box, CircularProgress, Typography } from '@mui/material';
+import { Logo } from '../../components/logo';
+import { useAuthContext } from '../../contexts/auth-context';
+import { auth, ENABLE_AUTH } from '../../lib/auth';
 
 const parseUrl = () => {
   // Get the token from the page URL hash (without #)
   const hash = window.location.hash.substring(1);
   const token = hash.split('=')[1];
 
-  return {token};
+  return { token };
 };
 
 const Page = () => {
@@ -36,19 +36,19 @@ const Page = () => {
     }
 
     // Extract the token from the page URL
-    const {token} = parseUrl();
+    const { token } = parseUrl();
 
     // Token missing, redirect to home
     if (!token) {
       Router
-          .push('/')
-          .catch(console.error);
+        .push('/')
+        .catch(console.error);
       return;
     }
 
     try {
       // This can be call inside AuthProvider component, but we do it here for simplicity
-      await auth.signInWithLink('finalize', {token});
+      await auth.signInWithLink('finalize', { token });
 
       // Get the user from your database
       const user = {};
@@ -58,8 +58,8 @@ const Page = () => {
 
       // Redirect to home page
       Router
-          .push('/')
-          .catch(console.error);
+        .push('/')
+        .catch(console.error);
     } catch (err) {
       console.error(err);
       setError(err.message || 'Something went wrong');
@@ -96,7 +96,7 @@ const Page = () => {
           p: 3,
         }}
       >
-        <Box sx={{p: 3}}>
+        <Box sx={{ p: 3 }}>
           <NextLink
             href="/"
             passHref
@@ -112,7 +112,7 @@ const Page = () => {
           </NextLink>
         </Box>
         <Typography
-          sx={{mb: 1}}
+          sx={{ mb: 1 }}
           variant="h4"
         >
           Oops!

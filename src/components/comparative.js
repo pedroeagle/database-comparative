@@ -1,3 +1,4 @@
+import React from 'react'
 import { Bar } from "react-chartjs-2"
 import { CardContent, CircularProgress, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';

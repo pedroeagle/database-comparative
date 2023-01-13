@@ -1,18 +1,18 @@
-const { connection, mongoose } = require('../../database');
+const {connection, mongoose} = require('../../database');
 
-const buildSchema = collection => new mongoose.Schema({
+const buildSchema = (collection) => new mongoose.Schema({
   emp_no: {
     type: String,
     required: true,
     index: collection === 'employees_indexed' ? {
       unique: true,
-      type: 1
-    } : false
+      type: 1,
+    } : false,
   },
   gender: {
     type: String,
     required: true,
-    enum: ['M', 'F']
+    enum: ['M', 'F'],
   },
   birth_date: {
     type: Date,
@@ -23,18 +23,18 @@ const buildSchema = collection => new mongoose.Schema({
     required: true,
     index: collection === 'employees_indexed' ? {
       unique: false,
-      type: 1
-    } : false
+      type: 1,
+    } : false,
   },
   first_name: {
     type: String,
     required: true,
-    faker: 'name.firstName'
+    faker: 'name.firstName',
   },
   last_name: {
     type: String,
     required: true,
-    faker: 'name.lastName'
+    faker: 'name.lastName',
   },
   salaries: [{
     salary: Number,
@@ -44,15 +44,15 @@ const buildSchema = collection => new mongoose.Schema({
   titles: [{
     title: {
       type: String,
-      enum: ['Engineer', 'Senior Engineer', 'Manager', 'Assistant Engineer', 'Staff', 'Senior Staff', 'Technique Leader']
+      enum: ['Engineer', 'Senior Engineer', 'Manager', 'Assistant Engineer', 'Staff', 'Senior Staff', 'Technique Leader'],
     },
     from_date: Date,
     to_date: Date,
   }],
-}, { collection });
+}, {collection});
 
-const EmployeesSchema = buildSchema('employees')
-const EmployeesIndexedSchema = buildSchema('employees_indexed')
+const EmployeesSchema = buildSchema('employees');
+const EmployeesIndexedSchema = buildSchema('employees_indexed');
 
 module.exports = {
   Employees:
@@ -61,5 +61,5 @@ module.exports = {
   EmployeesIndexed: mongoose.models.employees_indexed ||
     mongoose.model('employees_indexed', EmployeesIndexedSchema, 'employees_indexed'),
   EmployeesSchema,
-  EmployeesIndexedSchema
+  EmployeesIndexedSchema,
 };

@@ -1,12 +1,12 @@
-import {useState} from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import NextLink from 'next/link';
-import {useFormik} from 'formik';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import {Box, Button, FormHelperText, Grid, Tab, Tabs, TextField, Typography} from '@mui/material';
-import {auth, ENABLE_AUTH} from '../../lib/auth';
-import {Logo} from '../../components/logo';
-import {useAuthContext} from '../../contexts/auth-context';
+import { Box, Button, FormHelperText, Grid, Tab, Tabs, TextField, Typography } from '@mui/material';
+import { auth, ENABLE_AUTH } from '../../lib/auth';
+import { Logo } from '../../components/logo';
+import { useAuthContext } from '../../contexts/auth-context';
 import Router from 'next/router';
 
 const Page = () => {
@@ -20,10 +20,10 @@ const Page = () => {
     },
     validationSchema: Yup.object({
       email: Yup
-          .string()
-          .email('Must be a valid email')
-          .max(255)
-          .required('Email is required'),
+        .string()
+        .email('Must be a valid email')
+        .max(255)
+        .required('Email is required'),
     }),
     onSubmit: async (values, helpers) => {
       if (!ENABLE_AUTH) {
@@ -72,8 +72,8 @@ const Page = () => {
 
     // Redirect to home page
     Router
-        .push('/')
-        .catch(console.error);
+      .push('/')
+      .catch(console.error);
   };
 
   return (
@@ -90,7 +90,7 @@ const Page = () => {
       >
         <Grid
           container
-          sx={{flex: '1 1 auto'}}
+          sx={{ flex: '1 1 auto' }}
         >
           <Grid
             item
@@ -145,7 +145,7 @@ const Page = () => {
                 {emailSent ? (
                   <div>
                     <Typography
-                      sx={{mb: 1}}
+                      sx={{ mb: 1 }}
                       variant="h4"
                     >
                       Confirm your email
@@ -188,21 +188,21 @@ const Page = () => {
                 ) : (
                   <div>
                     <Typography
-                      sx={{mb: 1}}
+                      sx={{ mb: 1 }}
                       variant="h4"
                     >
                       Welcome
                     </Typography>
                     <Typography
                       color="text.secondary"
-                      sx={{mb: 3}}
+                      sx={{ mb: 3 }}
                       variant="body2"
                     >
                       Sign up on the internal platform
                     </Typography>
                     <Tabs
                       onChange={handleTabChange}
-                      sx={{mb: 3}}
+                      sx={{ mb: 3 }}
                       value={tab}
                     >
                       <Tab
@@ -228,13 +228,13 @@ const Page = () => {
                           value={formik.values.email}
                           variant="outlined"
                         />
-                        <FormHelperText sx={{mt: 1}}>
+                        <FormHelperText sx={{ mt: 1 }}>
                           Enter a valid email since this is a fully integrated authentication system. Optionally you can skip.
                         </FormHelperText>
                         {formik.errors.submit && (
                           <Typography
                             color="error"
-                            sx={{mt: 2}}
+                            sx={{ mt: 2 }}
                             variant="body2"
                           >
                             {formik.errors.submit}
@@ -243,7 +243,7 @@ const Page = () => {
                         <Button
                           fullWidth
                           size="large"
-                          sx={{mt: 3}}
+                          sx={{ mt: 3 }}
                           onClick={() => formik.handleSubmit()}
                           variant="contained"
                         >
@@ -252,7 +252,7 @@ const Page = () => {
                         <Button
                           fullWidth
                           size="large"
-                          sx={{mt: 3}}
+                          sx={{ mt: 3 }}
                           onClick={handleSkip}
                         >
                           Skip authentication
@@ -262,7 +262,7 @@ const Page = () => {
                     {tab === 'phoneNumber' && (
                       <div>
                         <Typography
-                          sx={{mb: 1}}
+                          sx={{ mb: 1 }}
                           variant="h6"
                         >
                           Not available in the demo
@@ -292,7 +292,7 @@ const Page = () => {
               },
             }}
           >
-            <Box sx={{p: 3}}>
+            <Box sx={{ p: 3 }}>
               <Typography
                 align="center"
                 color="inherit"
@@ -307,7 +307,7 @@ const Page = () => {
                 <Box
                   component="a"
                   href="https://zalter.com?ref=devias-mk-react"
-                  sx={{color: '#15B79E'}}
+                  sx={{ color: '#15B79E' }}
                   target="_blank"
                 >
                   zalter.com
@@ -315,7 +315,7 @@ const Page = () => {
               </Typography>
               <Typography
                 align="center"
-                sx={{mb: 3}}
+                sx={{ mb: 3 }}
                 variant="subtitle1"
               >
                 Create secure, seamless user experiences with Zalter Passwordless Authentication.

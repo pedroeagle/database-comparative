@@ -1,3 +1,4 @@
+import React from 'react'
 import Head from 'next/head';
 import { Box, Container, Grid } from '@mui/material';
 import { Departments } from '../components/dashboard/budget';
@@ -10,7 +11,7 @@ import { Salaries } from '../components/dashboard/total-profit';
 import { EmployeesByDepartment } from '../components/dashboard/traffic-by-device';
 import { DashboardLayout } from '../components/dashboard-layout';
 
-const Page = ({ data }) => (
+const Page = () => (
   <>
     <Head>
       <title>

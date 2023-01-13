@@ -1,6 +1,6 @@
-import {createContext, useContext, useEffect, useReducer, useRef} from 'react';
+import React, { createContext, useContext, useEffect, useReducer, useRef } from 'react';
 import PropTypes from 'prop-types';
-import {auth, ENABLE_AUTH} from '../lib/auth';
+import { auth, ENABLE_AUTH } from '../lib/auth';
 
 const HANDLERS = {
   INITIALIZE: 'INITIALIZE',
@@ -58,10 +58,10 @@ const reducer = (state, action) => (
 
 // The role of this context is to propagate authentication state through the App tree.
 
-export const AuthContext = createContext({undefined});
+export const AuthContext = createContext({ undefined });
 
 export const AuthProvider = (props) => {
-  const {children} = props;
+  const { children } = props;
   const [state, dispatch] = useReducer(reducer, initialState);
   const initialized = useRef(false);
 

@@ -3,7 +3,7 @@ services:
   app:
     container_name: app
     build: .
-    command: sh -c "npm i && node load && cd src && npm i && npm run dev"
+    command: sh -c "./start.sh"
     depends_on:
       - postgres
     links:

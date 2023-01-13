@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -147,7 +147,7 @@ export const AccountProfileDetails = (props) => {
                 onChange={handleChange}
                 required
                 select
-                SelectProps={{native: true}}
+                SelectProps={{ native: true }}
                 value={values.state}
                 variant="outlined"
               >

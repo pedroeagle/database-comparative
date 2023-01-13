@@ -1,12 +1,12 @@
-import {useContext} from 'react';
+import React, { useContext } from 'react';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
-import {Box, MenuItem, MenuList, Popover, Typography} from '@mui/material';
-import {AuthContext} from '../contexts/auth-context';
-import {auth, ENABLE_AUTH} from '../lib/auth';
+import { Box, MenuItem, MenuList, Popover, Typography } from '@mui/material';
+import { AuthContext } from '../contexts/auth-context';
+import { auth, ENABLE_AUTH } from '../lib/auth';
 
 export const AccountPopover = (props) => {
-  const {anchorEl, onClose, open, ...other} = props;
+  const { anchorEl, onClose, open, ...other } = props;
   const authContext = useContext(AuthContext);
 
   const handleSignOut = async () => {
@@ -29,8 +29,8 @@ export const AccountPopover = (props) => {
 
       // Redirect to sign-in page
       Router
-          .push('/sign-in')
-          .catch(console.error);
+        .push('/sign-in')
+        .catch(console.error);
       return;
     }
 
@@ -43,8 +43,8 @@ export const AccountPopover = (props) => {
 
       // Redirect to sign-in page
       Router
-          .push('/sign-in')
-          .catch(console.error);
+        .push('/sign-in')
+        .catch(console.error);
     } catch (err) {
       console.error(err);
     }
@@ -60,7 +60,7 @@ export const AccountPopover = (props) => {
       onClose={onClose}
       open={open}
       PaperProps={{
-        sx: {width: '300px'},
+        sx: { width: '300px' },
       }}
       {...other}
     >

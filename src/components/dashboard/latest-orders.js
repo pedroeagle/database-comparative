@@ -17,7 +17,7 @@ import {
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { SeverityPill } from '../severity-pill';
 import { Comparative } from '../comparative';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from '../../config/axios';
 import { config } from 'dotenv'
 config()
@@ -93,7 +93,7 @@ export const LatestPromotedEmployees = (props) => {
   const fetchData = async () => {
     setLoading(true)
     for (const db of ['mongo', 'postgres', 'mongo_indexed']) {
-      const { data: { response, time: t }} = await axios.get(`/api/${db}/last/promotions`)
+      const { data: { response, time: t } } = await axios.get(`/api/${db}/last/promotions`)
       if (db === 'postgres') setResponse(response)
       setTime((time) => ({ ...time, [db]: t }))
     }

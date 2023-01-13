@@ -1,6 +1,6 @@
-const { mongoose } = require('../../database');
+const {mongoose} = require('../../database');
 
-const buildSchema = collection => new mongoose.Schema({
+const buildSchema = (collection) => new mongoose.Schema({
   dept_no: {
     type: String,
     required: true,
@@ -14,17 +14,17 @@ const buildSchema = collection => new mongoose.Schema({
     required: true,
     index: collection === 'dept_manager_indexed' ? {
       unique: false,
-      type: 1
-    } : false
+      type: 1,
+    } : false,
   },
   to_date: {
     type: Date,
     required: true,
   },
-}, { collection })
+}, {collection});
 
-const DepartmentManagerSchema = buildSchema('dept_manager')
-const DepartmentManagerIndexedSchema = buildSchema('dept_manager_indexed')
+const DepartmentManagerSchema = buildSchema('dept_manager');
+const DepartmentManagerIndexedSchema = buildSchema('dept_manager_indexed');
 
 module.exports = {
   DepartmentManager: mongoose.models.dept_manager ||

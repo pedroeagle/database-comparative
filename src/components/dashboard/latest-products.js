@@ -16,7 +16,7 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Comparative } from '../comparative';
 import { styled } from '@mui/material/styles';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from '../../config/axios';
 import { config } from 'dotenv'
 config()
@@ -81,7 +81,7 @@ export const LatestHirings = (props) => {
   const fetchData = async () => {
     setLoading(true)
     for (const db of ['mongo', 'postgres', 'mongo_indexed']) {
-      const { data: { response, time: t }} = await axios.get(`/api/${db}/last/hirings`)
+      const { data: { response, time: t } } = await axios.get(`/api/${db}/last/hirings`)
       if (db === 'postgres') setResponse(response)
       setTime((time) => ({ ...time, [db]: t }))
     }

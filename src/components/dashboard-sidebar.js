@@ -1,20 +1,20 @@
-import {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import NextLink from 'next/link';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import {Box, Button, Divider, Drawer, Typography, useMediaQuery} from '@mui/material';
+import { Box, Button, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import {ChartBar as ChartBarIcon} from '../icons/chart-bar';
-import {Cog as CogIcon} from '../icons/cog';
-import {Lock as LockIcon} from '../icons/lock';
-import {Selector as SelectorIcon} from '../icons/selector';
-import {ShoppingBag as ShoppingBagIcon} from '../icons/shopping-bag';
-import {User as UserIcon} from '../icons/user';
-import {UserAdd as UserAddIcon} from '../icons/user-add';
-import {Users as UsersIcon} from '../icons/users';
-import {XCircle as XCircleIcon} from '../icons/x-circle';
-import {Logo} from './logo';
-import {NavItem} from './nav-item';
+import { ChartBar as ChartBarIcon } from '../icons/chart-bar';
+import { Cog as CogIcon } from '../icons/cog';
+import { Lock as LockIcon } from '../icons/lock';
+import { Selector as SelectorIcon } from '../icons/selector';
+import { ShoppingBag as ShoppingBagIcon } from '../icons/shopping-bag';
+import { User as UserIcon } from '../icons/user';
+import { UserAdd as UserAddIcon } from '../icons/user-add';
+import { Users as UsersIcon } from '../icons/users';
+import { XCircle as XCircleIcon } from '../icons/x-circle';
+import { Logo } from './logo';
+import { NavItem } from './nav-item';
 
 const items = [
   {
@@ -60,7 +60,7 @@ const items = [
 ];
 
 export const DashboardSidebar = (props) => {
-  const {open, onClose} = props;
+  const { open, onClose } = props;
   const router = useRouter();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
     defaultMatches: true,
@@ -68,17 +68,16 @@ export const DashboardSidebar = (props) => {
   });
 
   useEffect(
-      () => {
-        if (!router.isReady) {
-          return;
-        }
+    () => {
+      if (!router.isReady) {
+        return;
+      }
 
-        if (open) {
-          onClose?.();
-        }
-      },
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [router.asPath],
+      if (open) {
+        onClose?.();
+      }
+    },
+    [router.asPath],
   );
 
   const content = (
@@ -91,7 +90,7 @@ export const DashboardSidebar = (props) => {
         }}
       >
         <div>
-          <Box sx={{p: 3}}>
+          <Box sx={{ p: 3 }}>
             <NextLink
               href="/"
               passHref
@@ -151,7 +150,7 @@ export const DashboardSidebar = (props) => {
             my: 3,
           }}
         />
-        <Box sx={{flexGrow: 1}}>
+        <Box sx={{ flexGrow: 1 }}>
           {items.map((item) => (
             <NavItem
               key={item.title}
@@ -161,7 +160,7 @@ export const DashboardSidebar = (props) => {
             />
           ))}
         </Box>
-        <Divider sx={{borderColor: '#2D3748'}} />
+        <Divider sx={{ borderColor: '#2D3748' }} />
         {/* <Box
           sx={{
             px: 2,
@@ -247,7 +246,7 @@ export const DashboardSidebar = (props) => {
           width: 280,
         },
       }}
-      sx={{zIndex: (theme) => theme.zIndex.appBar + 100}}
+      sx={{ zIndex: (theme) => theme.zIndex.appBar + 100 }}
       variant="temporary"
     >
       {content}

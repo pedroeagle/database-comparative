@@ -2,7 +2,7 @@ import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import PeopleIcon from '@mui/icons-material/PeopleOutlined';
 import { Comparative } from '../comparative';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from '../../config/axios';
 import { config } from 'dotenv'
 config()
@@ -15,7 +15,7 @@ export const Employees = (props) => {
   const fetchData = async () => {
     setLoading(true)
     for (const db of ['mongo', 'postgres', 'mongo_indexed']) {
-      const { data: { response, time: t }} = await axios.get(`/api/${db}/employees/count`)
+      const { data: { response, time: t } } = await axios.get(`/api/${db}/employees/count`)
       if (db === 'postgres') setResponse(response)
       setTime((time) => ({ ...time, [db]: t }))
     }

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { AppBar, Avatar, Badge, Box, Button, IconButton, Toolbar, Tooltip } from '@mui/material';
@@ -8,7 +8,7 @@ import { Bell as BellIcon } from '../icons/bell';
 import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import { Users as UsersIcon } from '../icons/users';
 import { AccountPopover } from './account-popover';
-import {Download as DownloadIcon} from '../icons/download';
+import { Download as DownloadIcon } from '../icons/download';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -59,12 +59,12 @@ export const DashboardNavbar = (props) => {
           <Box sx={{ flexGrow: 1 }} />
           <Tooltip title="Download CSV Report">
             <a href={`/api/reports/${window.sessionStorage.getItem('id')}`} target="blank">
-            <Button
-              startIcon={(<DownloadIcon fontSize="small" />)}
-              sx={{ mr: 1 }}
-            >
-              Download CSV Report
-            </Button>
+              <Button
+                startIcon={(<DownloadIcon fontSize="small" />)}
+                sx={{ mr: 1 }}
+              >
+                Download CSV Report
+              </Button>
             </a>
           </Tooltip>
           {/* <Tooltip title="Notifications">

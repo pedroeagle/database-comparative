@@ -1,42 +1,42 @@
-const { mongoose } = require('../../database');
+const {mongoose} = require('../../database');
 
-const buildSchema = collection => new mongoose.Schema({
+const buildSchema = (collection) => new mongoose.Schema({
   emp_no: {
     type: String,
     required: true,
     index: collection === 'dept_emp_indexed' ? {
       unique: false,
-      type: 1
-    } : false
+      type: 1,
+    } : false,
   },
   dept_no: {
     type: String,
     required: true,
     index: collection === 'dept_emp_indexed' ? {
       unique: false,
-      type: 1
-    } : false
+      type: 1,
+    } : false,
   },
   from_date: {
     type: Date,
     required: true,
     index: collection === 'dept_emp_indexed' ? {
       unique: false,
-      type: 1
-    } : false
+      type: 1,
+    } : false,
   },
   to_date: {
     type: Date,
     required: true,
   },
-}, { collection: 'dept_emp' })
+}, {collection: 'dept_emp'});
 
-const DepartmentEmployeeSchema = buildSchema('dept_emp')
-const DepartmentEmployeeIndexedSchema = buildSchema('dept_emp_indexed')
+const DepartmentEmployeeSchema = buildSchema('dept_emp');
+const DepartmentEmployeeIndexedSchema = buildSchema('dept_emp_indexed');
 
 module.exports = {
   DepartmentEmployee: mongoose.models.dept_emp ||
     mongoose.model('dept_emp', DepartmentEmployeeSchema, 'dept_emp'),
   DepartmentEmployeeIndexed: mongoose.models.dept_emp_indexed ||
-    mongoose.model('dept_emp_indexed', DepartmentEmployeeIndexedSchema, 'dept_emp_indexed')
+    mongoose.model('dept_emp_indexed', DepartmentEmployeeIndexedSchema, 'dept_emp_indexed'),
 };
