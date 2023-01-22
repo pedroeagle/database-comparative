@@ -32,7 +32,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Employees | Material Kit
+          Employees | Database Comparative
         </title>
       </Head>
       <Box

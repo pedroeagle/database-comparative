@@ -87,9 +87,10 @@ export const DashboardSidebar = (props) => {
           display: 'flex',
           flexDirection: 'column',
           height: '100%',
+          paddingTop: '20px'
         }}
       >
-        <div>
+        {/* <div>
           <Box sx={{ p: 3 }}>
             <NextLink
               href="/"
@@ -105,7 +106,7 @@ export const DashboardSidebar = (props) => {
               </a>
             </NextLink>
           </Box>
-          {/* <Box sx={{px: 2}}>
+          <Box sx={{px: 2}}>
             <Box
               sx={{
                 alignItems: 'center',
@@ -142,14 +143,14 @@ export const DashboardSidebar = (props) => {
                 }}
               />
             </Box>
-          </Box> */}
+          </Box>
         </div>
         <Divider
           sx={{
             borderColor: '#2D3748',
             my: 3,
           }}
-        />
+        /> */}
         <Box sx={{ flexGrow: 1 }}>
           {items.map((item) => (
             <NavItem
@@ -160,7 +161,7 @@ export const DashboardSidebar = (props) => {
             />
           ))}
         </Box>
-        <Divider sx={{ borderColor: '#2D3748' }} />
+        {/* <Divider sx={{ borderColor: '#2D3748' }} /> */}
         {/* <Box
           sx={{
             px: 2,
