@@ -108,7 +108,7 @@ export const LatestPromotedEmployees = (props) => {
         <CardHeader title="Latest Promotions to Manager" />
         <Box>
           <TableContainer>
-            <Table sx={{ width: '100%' }}>
+            <Table sx={{ width: '100%', minWidth: '700px' }}>
               {response.length > 0 &&
                 <TableHead>
                   <TableRow>
