@@ -93,17 +93,19 @@ export const LatestHirings = (props) => {
       fetch={fetchData}
       child={<Card {...props}>
         <CardHeader
-          subtitle={`${products.length} in total`}
+          // subtitle={`${products.length} in total`}
           title="Latest Hirings"
         />
-        <Divider />
-        <List>
-          {response.map((employee, i) => (
-            <ListItem
-              divider={i < response.length - 1}
-              key={response.emp_no}
-            >
-              {/* <ListItemAvatar>
+        {response.length > 0 &&
+          <>
+            <Divider />
+            <List>
+              {response.map((employee, i) => (
+                <ListItem
+                  divider={i < response.length - 1}
+                  key={response.emp_no}
+                >
+                  {/* <ListItemAvatar>
               <img
                 alt={product.name}
                 src={product.imageUrl}
@@ -113,24 +115,25 @@ export const LatestHirings = (props) => {
                 }}
               />
             </ListItemAvatar> */}
-              <TitlesAndSalaries>
-                <ListItemText
-                  primary={<h4>{`${employee.first_name} ${employee.last_name}`}</h4>}
-                  sx={{ justifyContent: 'space-between', display: 'flex' }}
-                  secondary={`Hired at ${employee.hire_date}`}
-                />
-                <p>Salary Updates: {employee.salaries.length - 1}</p>
-                <p>Titles: {employee.titles.map(({ title }) => title).join(', ')}</p>
-              </TitlesAndSalaries>
-              {/* <IconButton
+                  <TitlesAndSalaries>
+                    <ListItemText
+                      primary={<h4>{`${employee.first_name} ${employee.last_name}`}</h4>}
+                      sx={{ justifyContent: 'space-between', display: 'flex' }}
+                      secondary={`Hired at ${employee.hire_date}`}
+                    />
+                    <p>Salary Updates: {employee.salaries.length - 1}</p>
+                    <p>Titles: {employee.titles.map(({ title }) => title).join(', ')}</p>
+                  </TitlesAndSalaries>
+                  {/* <IconButton
               edge="end"
               size="small"
             >
               <MoreVertIcon />
             </IconButton> */}
-            </ListItem>
-          ))}
-        </List>
+                </ListItem>
+              ))}
+            </List>
+          </>}
         {/* <Divider />
         <Box
           sx={{

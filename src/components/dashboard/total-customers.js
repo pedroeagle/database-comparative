@@ -59,14 +59,14 @@ export const Employees = (props) => {
               </Avatar>
             </Grid>
           </Grid>
-          <Box
+          {/* <Box
             sx={{
               alignItems: 'center',
               display: 'flex',
               pt: 2,
             }}
           >
-            {/* <ArrowUpwardIcon color="success" />
+            <ArrowUpwardIcon color="success" />
         <Typography
           variant="body2"
           sx={{
@@ -80,8 +80,8 @@ export const Employees = (props) => {
           variant="caption"
         >
           Since last month
-        </Typography> */}
-          </Box>
+        </Typography>
+          </Box> */}
         </CardContent>
       </Card>} />
   )

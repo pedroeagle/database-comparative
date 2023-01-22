@@ -9,6 +9,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   TableSortLabel,
@@ -105,47 +106,48 @@ export const LatestPromotedEmployees = (props) => {
       fetch={fetchData}
       child={<Card {...props}>
         <CardHeader title="Latest Promotions to Manager" />
-        <PerfectScrollbar>
-          <Box sx={{ minWidth: 600 }}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>
-                    Employee
-                  </TableCell>
-                  <TableCell>
-                    Department
-                  </TableCell>
-                  <TableCell>
-                    Promotion
-                  </TableCell>
-                  <TableCell>
-                    Since
-                  </TableCell>
-                  <TableCell>
-                    Sex
-                  </TableCell>
-                </TableRow>
-              </TableHead>
+        <Box>
+          <TableContainer>
+            <Table sx={{ width: '100%' }}>
+              {response.length > 0 &&
+                <TableHead>
+                  <TableRow>
+                    <TableCell>
+                      Employee
+                    </TableCell>
+                    <TableCell>
+                      Department
+                    </TableCell>
+                    <TableCell>
+                      Promotion
+                    </TableCell>
+                    <TableCell>
+                      Since
+                    </TableCell>
+                    <TableCell>
+                      Sex
+                    </TableCell>
+                  </TableRow>
+                </TableHead>}
               <TableBody>
                 {response.map((order) => (
                   <TableRow
                     hover
                     key={order.id}
                   >
-                    <TableCell>
+                    <TableCell style={{ fontSize: '15px', paddingTop: 37.5 }}>
                       {order.employee.first_name} {order.employee.last_name}
                     </TableCell>
-                    <TableCell>
+                    <TableCell style={{ fontSize: '15px', paddingTop: 37.5 }}>
                       {order.department.dept_name}
                     </TableCell>
-                    <TableCell>
+                    <TableCell style={{ fontSize: '15px', paddingTop: 37.5 }}>
                       {order.from_date}
                     </TableCell>
-                    <TableCell>
+                    <TableCell style={{ fontSize: '15px', paddingTop: 37.5 }}>
                       {order.employee?.dept_emps.find(dept_emp => dept_emp.dept_no === order.department.dept_no).from_date}
                     </TableCell>
-                    <TableCell>
+                    <TableCell style={{ fontSize: '15px', paddingTop: 37.5 }}>
                       <SeverityPill
                         color={order.employee.gender === 'F' ? 'pink' : 'blue'}
                       >
@@ -156,8 +158,8 @@ export const LatestPromotedEmployees = (props) => {
                 ))}
               </TableBody>
             </Table>
-          </Box>
-        </PerfectScrollbar>
+          </TableContainer>
+        </Box>
         {/* <Box
           sx={{
             display: 'flex',

@@ -70,7 +70,7 @@ export const EmployeesByDepartment = (props) => {
         <CardContent>
           <Box
             sx={{
-              height: 300,
+              height: 384,
               position: 'relative',
             }}
           >
