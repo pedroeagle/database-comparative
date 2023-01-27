@@ -1,14 +1,9 @@
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { AppBar, Avatar, Badge, Box, Button, IconButton, Toolbar, Tooltip } from '@mui/material';
+import { AppBar, Box, Button, IconButton, Toolbar, Tooltip } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import { Bell as BellIcon } from '../icons/bell';
-import { UserCircle as UserCircleIcon } from '../icons/user-circle';
-import { Users as UsersIcon } from '../icons/users';
-import { AccountPopover } from './account-popover';
-import { Download as DownloadIcon } from '../icons/download';
+import DownloadIcon from '@mui/icons-material/Download';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -17,9 +12,11 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 
 export const DashboardNavbar = (props) => {
   const { onSidebarOpen, ...other } = props;
-  const settingsRef = useRef(null);
-  const [openAccountPopover, setOpenAccountPopover] = useState(false);
+  const [id, setId] = React.useState('')
 
+  React.useEffect(() => {
+    setId(window.sessionStorage.getItem('id'))
+  }, [])
   return (
     <>
       <DashboardNavbarRoot
@@ -51,14 +48,9 @@ export const DashboardNavbar = (props) => {
           >
             <MenuIcon fontSize="small" />
           </IconButton>
-          {/* <Tooltip title="Search">
-            <IconButton sx={{ ml: 1 }}>
-              <SearchIcon fontSize="small" />
-            </IconButton>
-          </Tooltip> */}
           <Box sx={{ flexGrow: 1 }} />
           <Tooltip title="Download CSV Report">
-            <a href={`/api/reports/${window.sessionStorage.getItem('id')}`} target="blank">
+            <a href={`/api/reports/${id}`} target="blank">
               <Button
                 startIcon={(<DownloadIcon fontSize="small" />)}
                 sx={{ mr: 1 }}
@@ -67,37 +59,8 @@ export const DashboardNavbar = (props) => {
               </Button>
             </a>
           </Tooltip>
-          {/* <Tooltip title="Notifications">
-            <IconButton sx={{ ml: 1 }}>
-              <Badge
-                badgeContent={4}
-                color="primary"
-                variant="dot"
-              >
-                <BellIcon fontSize="small" />
-              </Badge>
-            </IconButton>
-          </Tooltip> */}
-          {/* <Avatar
-            onClick={() => setOpenAccountPopover(true)}
-            ref={settingsRef}
-            sx={{
-              cursor: 'pointer',
-              height: 40,
-              width: 40,
-              ml: 1,
-            }}
-            src="/static/images/avatars/avatar_1.png"
-          >
-            <UserCircleIcon fontSize="small" />
-          </Avatar> */}
         </Toolbar>
       </DashboardNavbarRoot>
-      <AccountPopover
-        anchorEl={settingsRef.current}
-        open={openAccountPopover}
-        onClose={() => setOpenAccountPopover(false)}
-      />
     </>
   );
 };

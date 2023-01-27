@@ -104,14 +104,6 @@ export const EmployeesByYear = (props) => {
       fetch={fetchData}
       child={<Card {...props}>
         <CardHeader
-          // action={(
-          //   <Button
-          //     endIcon={<ArrowDropDownIcon fontSize="small" />}
-          //     size="small"
-          //   >
-          //     25-07 to 31-07
-          //   </Button>
-          // )}
           title="Hirings on July Last Week"
         />
         <Divider />

@@ -7,9 +7,7 @@ import {
   InputAdornment,
   SvgIcon, Typography,
 } from '@mui/material';
-import { Search as SearchIcon } from '../../icons/search';
-import { Upload as UploadIcon } from '../../icons/upload';
-import { Download as DownloadIcon } from '../../icons/download';
+import SearchIcon from '@mui/icons-material/Search';
 import axios from '../../config/axios';
 import React, { useEffect, useState } from 'react';
 import { Comparative } from '../comparative';

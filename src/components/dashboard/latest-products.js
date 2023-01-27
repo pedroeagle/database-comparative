@@ -93,7 +93,6 @@ export const LatestHirings = (props) => {
       fetch={fetchData}
       child={<Card {...props}>
         <CardHeader
-          // subtitle={`${products.length} in total`}
           title="Latest Hirings"
         />
         {response.length > 0 &&
@@ -105,16 +104,6 @@ export const LatestHirings = (props) => {
                   divider={i < response.length - 1}
                   key={response.emp_no}
                 >
-                  {/* <ListItemAvatar>
-              <img
-                alt={product.name}
-                src={product.imageUrl}
-                style={{
-                  height: 48,
-                  width: 48,
-                }}
-              />
-            </ListItemAvatar> */}
                   <TitlesAndSalaries>
                     <ListItemText
                       primary={<h4>{`${employee.first_name} ${employee.last_name}`}</h4>}
@@ -124,33 +113,10 @@ export const LatestHirings = (props) => {
                     <p>Salary Updates: {employee.salaries.length - 1}</p>
                     <p>Titles: {employee.titles.map(({ title }) => title).join(', ')}</p>
                   </TitlesAndSalaries>
-                  {/* <IconButton
-              edge="end"
-              size="small"
-            >
-              <MoreVertIcon />
-            </IconButton> */}
                 </ListItem>
               ))}
             </List>
           </>}
-        {/* <Divider />
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            p: 2,
-          }}
-        >
-          <Button
-            color="primary"
-            endIcon={<ArrowRightIcon />}
-            size="small"
-            variant="text"
-          >
-            View all
-          </Button>
-        </Box> */}
       </Card>} />
   )
 };

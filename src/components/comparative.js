@@ -36,21 +36,6 @@ export const Comparative = ({ time: { mongo, postgres, mongo_indexed }, fetch, c
     if (fetch) fetch()
   }, [])
   const theme = useTheme();
-  // const options = {
-  //   labels: ['mongo', 'postgres', 'mongo_indexed'],
-  //   datasets: [
-  //     {
-  //       label: 'Mongo',
-  //       data: [mongo],
-  //       backgroundColor: 'rgba(82, 171, 76, 0.5)',
-  //     },
-  //     {
-  //       label: 'Postgres',
-  //       data: [postgres],
-  //       backgroundColor: 'rgba(47,103,146, 0.5)'
-  //     }
-  //   ]
-  // }
   const data = {
     datasets: [
       {

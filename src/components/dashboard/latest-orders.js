@@ -1,9 +1,7 @@
 import { format } from 'date-fns';
 import { v4 as uuid } from 'uuid';
-import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Box,
-  Button,
   Card,
   CardHeader,
   Table,
@@ -11,12 +9,8 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow,
-  TableSortLabel,
-  Tooltip,
+  TableRow
 } from '@mui/material';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import { SeverityPill } from '../severity-pill';
 import { Comparative } from '../comparative';
 import React, { useState } from 'react';
 import axios from '../../config/axios';
@@ -148,11 +142,7 @@ export const LatestPromotedEmployees = (props) => {
                       {order.employee?.dept_emps.find(dept_emp => dept_emp.dept_no === order.department.dept_no).from_date}
                     </TableCell>
                     <TableCell style={{ fontSize: '15px', paddingTop: 37.5 }}>
-                      <SeverityPill
-                        color={order.employee.gender === 'F' ? 'pink' : 'blue'}
-                      >
-                        {order.employee.gender === 'F' ? 'Female' : 'Male  '}
-                      </SeverityPill>
+                      {order.employee.gender === 'F' ? 'Female' : 'Male'}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -160,22 +150,6 @@ export const LatestPromotedEmployees = (props) => {
             </Table>
           </TableContainer>
         </Box>
-        {/* <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            p: 2,
-          }}
-        >
-          <Button
-            color="primary"
-            endIcon={<ArrowRightIcon fontSize="small" />}
-            size="small"
-            variant="text"
-          >
-            View all
-          </Button>
-        </Box> */}
       </Card>} />
   )
 };
