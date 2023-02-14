@@ -1,15 +1,14 @@
-import {v4} from 'uuid';
-import {config} from 'dotenv';
+import { config } from 'dotenv';
 config();
 
-const {create} = require('axios');
+const { create } = require('axios');
 const axios = create({
   baseURL: process.env.BASE_URL,
 });
 axios.interceptors.request.use((config) => {
-  if (!window.sessionStorage.getItem('id')) {
-    window.sessionStorage.setItem('id', v4());
-  }
+  console.log('ID')
+  console.log(window.sessionStorage.getItem('id'))
+  console.log(!window.sessionStorage.getItem('id'))
   config.params = {
     id: window.sessionStorage.getItem('id'),
   };

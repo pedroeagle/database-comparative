@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { AppBar, Box, Button, IconButton, Toolbar, Tooltip } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import DownloadIcon from '@mui/icons-material/Download';
+import { v4 } from 'uuid';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -15,6 +16,9 @@ export const DashboardNavbar = (props) => {
   const [id, setId] = React.useState('')
 
   React.useEffect(() => {
+    if (!window.sessionStorage.getItem('id')) {
+      window.sessionStorage.setItem('id', v4())
+    }
     setId(window.sessionStorage.getItem('id'))
   }, [])
   return (
